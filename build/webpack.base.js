@@ -4,9 +4,6 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const { getMPA, getStyleFileLoaders } = require('./webpack.utils');
 
-// 区分开发or生产
-const isProd = process.env.NODE_ENV === 'production';
-
 // 配置多页
 const { entry, htmlWebpackPlugins } = getMPA();
 

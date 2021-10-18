@@ -6,26 +6,26 @@ const path = require('path');
 const glob = require('glob');
 
 module.exports = {
-  mode: 'production',
-  plugins: [
+    mode: 'production',
+    plugins: [
     // css文件单独抽离
-    new MiniCssExtractPlugin({
-      filename: 'css/[name]_[contenthash:8].css',
-    }),
-    // 擦除无用的css代码
-    new PurgeCSSPlugin({
-      paths: glob.sync(`${path.join(__dirname,'../src')}/**/*`, { nodir: true }),
-    }),
-  ],
-  optimization: {
-    minimizer: [
-      // '...', // 继承默认的压缩器，比如压缩js的terser-webpack-plugin
-      new TerserWebpackPlugin({
-        parallel: true, // 多进程压缩
-        extractComments: false, // 不将注释提取到单独的文件,类似于 xxx.js.LICENSE.txt
-      }),
-      // 压缩css
-      new CssMinimizerPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name]_[contenthash:8].css',
+        }),
+        // 擦除无用的css代码
+        new PurgeCSSPlugin({
+            paths: glob.sync(`${path.join(__dirname, '../src')}/**/*`, { nodir: true }),
+        }),
     ],
-  },
+    optimization: {
+        minimizer: [
+            // '...', // 继承默认的压缩器，比如压缩js的terser-webpack-plugin
+            new TerserWebpackPlugin({
+                parallel: true, // 多进程压缩
+                extractComments: false, // 不将注释提取到单独的文件,类似于 xxx.js.LICENSE.txt
+            }),
+            // 压缩css
+            new CssMinimizerPlugin(),
+        ],
+    },
 };

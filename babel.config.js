@@ -1,5 +1,5 @@
 // 区分开发or生产
-const isProd = process.env.NODE_ENV === 'production'; // https://webpack.docschina.org/api/cli/#node-env
+const isDev = process.env.NODE_ENV === 'development'; // https://webpack.docschina.org/api/cli/#node-env
 
 module.exports = {
     presets: [
@@ -14,7 +14,7 @@ module.exports = {
         '@babel/preset-typescript',
     ],
     plugins:
-  [!isProd && 'react-refresh/babel',
+  [isDev && 'react-refresh/babel',
       [
           'babel-plugin-import',
           {
