@@ -1,28 +1,23 @@
 {
-  "compilerOptions": {
-      "allowSyntheticDefaultImports":true,
-      "experimentalDecorators": true,
-      "rootDir": "src",
-      "outDir": "dist",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "module": "commonjs",
-      "target": "es5",
-      "jsx": "react",
-      "lib": ["es6","dom"],
-      "paths": {
-          "@/*": ["./src/*"]
-      },
-      "typeRoots": [
-          "./global.d.ts"
-      ]
-  },
-  "include": [
-      "./src/**/*",
-      "global.d.ts"
-  ],
-  "exclude": [
-      "node_modules",
-  ]
-}
-
+    "compilerOptions": {
+        "allowSyntheticDefaultImports":true,//允许从没有设置默认导出的模块中默认导入
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "./dist",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "lib": ["es6","dom"],
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+    },
+    "include": [
+        "./src/**/*",
+    ],
+    "exclude": [
+        "node_modules",
+    ]
+  }

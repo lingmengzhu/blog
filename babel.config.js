@@ -13,15 +13,15 @@ module.exports = {
         '@babel/preset-react',
         '@babel/preset-typescript',
     ],
-    plugins:
-  [isDev && 'react-refresh/babel',
-      [
-          'babel-plugin-import',
-          {
-              libraryName: 'antd',
-              libraryDirectory: 'es',
-              style: 'css', // `style: true` 会加载 less 文件
-          },
-      ],
-  ].filter(Boolean),
+    plugins: [
+        isDev && 'react-refresh/babel',
+        [
+            'babel-plugin-import',
+            {
+                libraryName: 'antd',
+                libraryDirectory: 'es',
+                style: 'css', // `style: true` 会加载 less 文件
+            },
+        ],
+    ].filter(Boolean),
 };
