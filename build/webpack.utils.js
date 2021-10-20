@@ -55,26 +55,19 @@ const getStyleFileLoaders = (preprocessor) => {
     const styleFileLoaders = [
         isProd ? MiniCssExtractPlugin.loader : 'style-loader', // css生产环境抽离
         'css-loader',
+        {
+            loader: 'postcss-loader',
+            options: {
+                postcssOptions: {
+                    plugins: ['postcss-preset-env', ['postcss-pxtorem', { rootValue: 75, propList: ['*'] }]],
+                },
+            },
+        },
     ];
 
     preprocessor && styleFileLoaders.push(preprocessor);// 预处理器
 
-    return styleFileLoaders.concat({
-        loader: 'postcss-loader',
-        options: {
-            postcssOptions: {
-                plugins: [['postcss-preset-env']],
-            },
-        },
-    },
-    {
-        loader: 'px2rem-loader',
-        options: {
-            remUnit: 75,
-            remPrecision: 5,
-            exclude: /node_modules/,
-        },
-    });
+    return styleFileLoaders;
 };
 
 module.exports = {

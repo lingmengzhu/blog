@@ -87,6 +87,7 @@ module.exports = {
         new FriendlyErrorsPlugin(),
         new ESLintPlugin({
             extensions: ['ts', 'tsx', 'js'],
+            failOnError: false,
         }),
     ].filter(Boolean),
     optimization: {

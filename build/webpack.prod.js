@@ -21,7 +21,7 @@ module.exports = {
         minimizer: [
             // '...', // 继承默认的压缩器，比如压缩js的terser-webpack-plugin
             new TerserWebpackPlugin({
-                parallel: true, // 多进程压缩
+                parallel: true, // 多进程并行压缩
                 extractComments: false, // 不将注释提取到单独的文件,类似于 xxx.js.LICENSE.txt
             }),
             // 压缩css
