@@ -8,11 +8,14 @@ class App extends React.Component {
   };
 
   render() {
+      const { count } = this.state;
+
       return (
           <div>
-        search
+              search
               <button type="button" onClick={() => this.setState({ count: 2 })}>
-          +{this.state.count}
+                  +
+                  {count}
               </button>
           </div>
       );
