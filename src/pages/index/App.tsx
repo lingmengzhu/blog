@@ -9,7 +9,7 @@ function App() {
             parent
             {' '}
             {count}
-            <button type="button" onClick={() => setCount(count + 1)}>
+            <button className="1" type="button" onClick={() => setCount(count + 1)}>
                 +
             </button>
             <Child />
