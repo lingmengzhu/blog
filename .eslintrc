@@ -8,13 +8,6 @@
         "airbnb/hooks"
     ],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
     "plugins": [
         "@typescript-eslint",
         "react"
@@ -25,7 +18,8 @@
         }
     },
     "rules": {
-        "react/jsx-filename-extension":[1, { "extensions": [".jsx",".tsx"]}],
+        "react/jsx-indent" : ["error", 4],
+        "react/jsx-filename-extension":[1, { "extensions": [".tsx"]}],
             "linebreak-style": 0,
             "indent": [
                 2,

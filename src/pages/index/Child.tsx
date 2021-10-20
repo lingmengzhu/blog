@@ -7,10 +7,11 @@ function Child() {
 
     return (
         <div className="index">
-      child
-            {' '}
+            child
             {count}
-            <button type="button" onClick={() => setCount(count + 2)}>+</button>
+            <button type="button" onClick={() => setCount(count + 2)}>
+                +
+            </button>
         </div>
     );
 }

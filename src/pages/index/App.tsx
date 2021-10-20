@@ -5,11 +5,13 @@ function App() {
     const [count, setCount] = React.useState(0);
 
     return (
-        <div>parent
+        <div>
+            parent
             {' '}
             {count}
-            {' '}
-            <button type="button" onClick={() => setCount(count + 1)}>+</button>
+            <button type="button" onClick={() => setCount(count + 1)}>
+                +
+            </button>
             <Child />
         </div>
     );

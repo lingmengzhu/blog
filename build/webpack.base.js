@@ -7,6 +7,8 @@ const { getMPA, getStyleFileLoaders } = require('./webpack.utils');
 // 配置多页
 const { entry, htmlWebpackPlugins } = getMPA();
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = {
     entry,
     output: {
@@ -29,22 +31,17 @@ module.exports = {
             '.less',
         ],
     },
+    cache: { // 开启构建结果缓存
+        type: isProd ? 'filesystem' : 'memory',
+    },
     module: {
         rules: [
             // 使用babel-loader解析ts、js、tsx、jsx文件
             {
                 test: /\.(jsx?|tsx?)$/,
                 use: [
-                    {
-                        // 多进程打包，加快速度
-                        loader: 'thread-loader',
-                    },
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            cacheDirectory: true, // 开启缓存
-                        },
-                    },
+                    'thread-loader',
+                    'babel-loader',
                 ],
                 exclude: /node_modules/,
             },
@@ -112,5 +109,4 @@ module.exports = {
             },
         },
     },
-    stats: 'errors-only',
 };
