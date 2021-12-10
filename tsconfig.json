@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "allowSyntheticDefaultImports":true,//允许从没有设置默认导出的模块中默认导入
+        "allowSyntheticDefaultImports": true, //允许从没有设置默认导出的模块中默认导入
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "outDir": "./dist",
@@ -9,15 +9,11 @@
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
-        "lib": ["es6","dom"],
+        "lib": ["es6", "dom"],
         "paths": {
             "@/*": ["./src/*"]
-        },
+        }
     },
-    "include": [
-        "./src/**/*",
-    ],
-    "exclude": [
-        "node_modules",
-    ]
-  }
+    "include": ["./src/**/*", "images.d.ts"],
+    "exclude": ["node_modules"]
+}

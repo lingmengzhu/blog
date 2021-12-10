@@ -59,7 +59,8 @@ const getStyleFileLoaders = (preprocessor) => {
             loader: 'postcss-loader',
             options: {
                 postcssOptions: {
-                    plugins: ['postcss-preset-env', ['postcss-pxtorem', { rootValue: 75, propList: ['*'] }]],
+                    plugins: ['postcss-preset-env'],
+                    // plugins: ['postcss-preset-env', ['postcss-pxtorem', { rootValue: 37.5, propList: ['*'] }]],
                 },
             },
         },

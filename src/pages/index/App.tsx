@@ -1,20 +1,11 @@
 import React from 'react';
-import Child from '@/pages/index/Child';
+import Route from './router';
+import './index.css';
+import './index.scss';
+import 'react-quill/dist/quill.snow.css';
 
 function App() {
-    const [count, setCount] = React.useState(0);
-
-    return (
-        <div>
-            parent
-            {' '}
-            {count}
-            <button className="1" type="button" onClick={() => setCount(count + 1)}>
-                +
-            </button>
-            <Child />
-        </div>
-    );
+    return <Route />;
 }
 
 export default App;
