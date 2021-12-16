@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 import { Button, message, Input } from 'antd';
 // 引入编辑器组件
 import BraftEditor, { ControlType } from 'braft-editor';
-
-import { addArticle } from '@/api/article';
+import { useParams } from 'react-router-dom';
+import { updateArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import './index.scss';
 
 const Index = () => {
     console.log('Index');
+    let { id } = useParams();
+    console.log('id', id);
     let VHtmlContent = '<p><strong><span style="line-height:2.5"><span style="font-size:30px">陈航</span></span>';
     VHtmlContent += '</strong></p><p style="text-indent:4em;"><strong>';
     VHtmlContent += '<span style="line-height:2.5"><span style="font-size:30px">';
@@ -56,7 +58,7 @@ const Index = () => {
 
     const onSubmit = () => {
         const htmlContent = editorState.toHTML();
-        addArticle({ title, content: htmlContent })
+        updateArticle({ id, title, content: htmlContent })
             .then(() => {
                 message.success('保存成功');
             })
@@ -70,7 +72,7 @@ const Index = () => {
     };
 
     return (
-        <div className="page-add">
+        <div className="page-edit">
             <div className="layout">
                 <div className="header">
                     <div className="title-input">

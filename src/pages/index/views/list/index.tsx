@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Space, Input, Button, Popconfirm, message } from 'antd';
-
+import { listArticle, deleteArticle } from '@/api/article';
 import './index.scss';
 
 const { Search } = Input;
 
 const Index = () => {
     console.log('Index');
+    useEffect(() => {
+        listArticle()
+            .then((res) => {
+                console.log('listArticle', res);
+            })
+            .catch(() => {
+                message.error('服务器错误');
+            });
+    }, [listArticle]);
     const onSearch = () => {};
 
     const onAdd = () => {
@@ -14,12 +23,19 @@ const Index = () => {
     };
 
     const onDel = (id: any) => {
-        console.log(id);
-        message.success(`id为${id}项已经被删除`);
+        deleteArticle(id)
+            .then((res) => {
+                console.log('listArticle', res);
+                message.success(`id为${id}项已经被删除`);
+            })
+            .catch(() => {
+                message.error('服务器错误');
+            });
     };
 
     const onEdit = (id: any) => {
         console.log(id);
+        window.location.href = `/#/edit/${id}`;
     };
 
     const columns = [
@@ -82,11 +98,7 @@ const Index = () => {
                         Add
                     </Button>
                 </div>
-                <Table
-                    style={{ width: '100%' }}
-                    columns={columns}
-                    dataSource={data}
-                />
+                <Table style={{ width: '100%' }} columns={columns} dataSource={data} />
             </div>
         </div>
     );
