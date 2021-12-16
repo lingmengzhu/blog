@@ -1,10 +1,10 @@
 /* eslint-disable react/no-danger */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, message, Input } from 'antd';
 // 引入编辑器组件
 import BraftEditor, { ControlType } from 'braft-editor';
 import { useParams } from 'react-router-dom';
-import { updateArticle } from '@/api/article';
+import { getArticle, updateArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import './index.scss';
@@ -13,6 +13,11 @@ const Index = () => {
     console.log('Index');
     let { id } = useParams();
     console.log('id', id);
+    useEffect(() => {
+        getArticle(id).then((res) => {
+            console.log('getArticle', res);
+        });
+    }, []);
     let VHtmlContent = '<p><strong><span style="line-height:2.5"><span style="font-size:30px">陈航</span></span>';
     VHtmlContent += '</strong></p><p style="text-indent:4em;"><strong>';
     VHtmlContent += '<span style="line-height:2.5"><span style="font-size:30px">';
