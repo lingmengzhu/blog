@@ -9,7 +9,7 @@ const { Search } = Input;
 const ArticleList = () => {
     console.log('ArticleList');
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(7);
     const [data, setData] = useState([]);
     useEffect(() => {
         listArticle({ page, pageSize })
