@@ -9,19 +9,29 @@ const Index = () => {
     console.log('Index');
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const [total, setTotal] = useState(0);
     const [data, setData] = useState([]);
 
     useEffect(() => {
         listArticle({ page, pageSize })
+            .then((res: any) => {
+                setData(res.data);
+                setTotal(res.total);
+            })
+            .catch(() => {
+                message.error('服务器错误');
+            });
+    }, [setData, listArticle, page, pageSize]);
+
+    const onSearch = (value: any) => {
+        listArticle({ keywords: value, page, pageSize })
             .then((res) => {
                 setData(res.data);
             })
             .catch(() => {
                 message.error('服务器错误');
             });
-    }, [setData, listArticle]);
-
-    const onSearch = () => {};
+    };
 
     const onAdd = () => {
         window.location.href = '/#/add';
@@ -84,7 +94,19 @@ const Index = () => {
             ),
         },
     ];
-
+    const paginationChange = (index: any, size: any) => {
+        setPage(index);
+        setPageSize(size);
+    };
+    const defaultPagination = {
+        size: 'small',
+        showTotal: (sum: any) => `total ${sum} item`,
+        showQuickJumper: false,
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '30'],
+        onChange: paginationChange,
+    };
+    const pagination: any = { ...defaultPagination, total, pageSize, current: page };
     return (
         <div className="page-list">
             <div className="layout">
@@ -97,7 +119,13 @@ const Index = () => {
                         Add
                     </Button>
                 </div>
-                <Table style={{ width: '100%' }} rowKey="_id" columns={columns} dataSource={data} />
+                <Table
+                    style={{ width: '100%' }}
+                    rowKey="_id"
+                    columns={columns}
+                    dataSource={data}
+                    pagination={pagination}
+                />
             </div>
         </div>
     );

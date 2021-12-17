@@ -40,7 +40,9 @@ const ArticleList = () => {
 const Header = () => {
     console.log('Header');
 
-    const onSearch = (value: string) => console.log(value);
+    const onSearch = (value: string) => {
+        window.location.href = `/#/search/${value}`;
+    };
 
     const onList = () => {
         window.location.href = '/#/list';
@@ -72,7 +74,9 @@ const Header = () => {
                         <div className="list">
                             <ArticleList />
                         </div>
-                        <div className="more">更多文章......</div>
+                        <div className="more" onClick={() => onSearch('')}>
+                            更多文章......
+                        </div>
                     </div>
                     <div className="info-card">
                         <div className="message">

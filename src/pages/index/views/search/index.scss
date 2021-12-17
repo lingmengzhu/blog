@@ -1,13 +1,22 @@
-.page-list {
+.page-show {
     .layout {
-        height: 100vh;
-        width: 100vw;
+        margin: auto;
         padding: 20px;
-        .button-group{
-            height: 36px;
+        width: 80%;
+        .header {
+            background-color: #fff;
+            padding: 20px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
+            margin-bottom: 30px;
+        }
+        .content {
+            background-color: #fff;
+            width: 100%;
+            .item {
+                padding: 8px;
+                width: 100%;
+            }
         }
     }
 }

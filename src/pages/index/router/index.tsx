@@ -17,7 +17,8 @@ const RouterView = () => (
                 <Route path="/add" element={<Add />} />
                 <Route path="/edit/:id" element={<Edit />} />
                 <Route path="/show/:id" element={<Show />} />
-                <Route path="/search/:keyword" element={<Search />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/search/:keywords" element={<Search />} />
             </Routes>
         </Suspense>
     </HashRouter>
