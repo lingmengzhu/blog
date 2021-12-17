@@ -11,12 +11,8 @@ import './index.scss';
 
 const Index = () => {
     console.log('Index');
-    let VHtmlContent = '<p><strong><span style="line-height:2.5"><span style="font-size:30px">陈航</span></span>';
-    VHtmlContent += '</strong></p><p style="text-indent:4em;"><strong>';
-    VHtmlContent += '<span style="line-height:2.5"><span style="font-size:30px">';
-    VHtmlContent += '我今天要吃火箭</span></span></strong></p>';
     const [title, setTitle] = useState('');
-    const [editorState, setEditorState] = useState(BraftEditor.createEditorState(VHtmlContent));
+    const [editorState, setEditorState] = useState(BraftEditor.createEditorState(null));
     const controls: ControlType[] = [
         'undo',
         'redo',

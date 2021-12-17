@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Space, Input, Button, Popconfirm, message } from 'antd';
 import { listArticle, deleteArticle } from '@/api/article';
 import './index.scss';
@@ -7,15 +7,20 @@ const { Search } = Input;
 
 const Index = () => {
     console.log('Index');
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+    const [data, setData] = useState([]);
+
     useEffect(() => {
-        listArticle()
+        listArticle({ page, pageSize })
             .then((res) => {
-                console.log('listArticle', res);
+                setData(res.data);
             })
             .catch(() => {
                 message.error('服务器错误');
             });
-    }, [listArticle]);
+    }, [setData, listArticle]);
+
     const onSearch = () => {};
 
     const onAdd = () => {
@@ -46,8 +51,13 @@ const Index = () => {
         },
         {
             title: '上传时间',
-            dataIndex: 'time',
-            key: 'time',
+            dataIndex: 'createTime',
+            key: 'createTime',
+        },
+        {
+            title: '修改时间',
+            dataIndex: 'modifyTime',
+            key: 'modifyTime',
         },
         {
             title: '类型',
@@ -59,13 +69,12 @@ const Index = () => {
             key: 'action',
             render: (text: any, record: any) => (
                 <Space size="middle">
-                    <Button type="link" onClick={() => onEdit(record.id)}>
+                    <Button type="link" onClick={() => onEdit(record._id)}>
                         Edit
                     </Button>
                     <Popconfirm
                         title="你确定要删除该项内容吗?"
-                        onConfirm={() => onDel(record.id)}
-                        // onCancel={cancel}
+                        onConfirm={() => onDel(record._id)}
                         okText="确认"
                         cancelText="取消"
                     >
@@ -73,16 +82,6 @@ const Index = () => {
                     </Popconfirm>
                 </Space>
             ),
-        },
-    ];
-
-    const data = [
-        {
-            id: '1',
-            key: '1',
-            title: '科技人生',
-            time: '1997-11-09',
-            type: '技术文集',
         },
     ];
 
@@ -98,7 +97,7 @@ const Index = () => {
                         Add
                     </Button>
                 </div>
-                <Table style={{ width: '100%' }} columns={columns} dataSource={data} />
+                <Table style={{ width: '100%' }} rowKey="_id" columns={columns} dataSource={data} />
             </div>
         </div>
     );
