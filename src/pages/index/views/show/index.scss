@@ -1,0 +1,17 @@
+.page-show {
+    .layout {
+        padding: 20px 20px;
+        .content {
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            width: 60%;
+            .title {
+                font-size: 32px;
+            }
+            .preview {
+                min-height: 720px;
+            }
+        }
+    }
+}

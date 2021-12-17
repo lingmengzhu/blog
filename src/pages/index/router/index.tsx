@@ -5,6 +5,8 @@ import Index from '../views/index';
 import List from '../views/list';
 import Add from '../views/add';
 import Edit from '../views/edit';
+import Show from '../views/show';
+import Search from '../views/search';
 
 const RouterView = () => (
     <HashRouter>
@@ -14,6 +16,8 @@ const RouterView = () => (
                 <Route path="/list" element={<List />} />
                 <Route path="/add" element={<Add />} />
                 <Route path="/edit/:id" element={<Edit />} />
+                <Route path="/show/:id" element={<Show />} />
+                <Route path="/search/:keyword" element={<Search />} />
             </Routes>
         </Suspense>
     </HashRouter>
