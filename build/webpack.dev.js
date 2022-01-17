@@ -1,13 +1,15 @@
 const ReactRefreshPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const proxy = require('../proxyTable');
+const path = require('path');
 
 module.exports = {
     mode: 'development',
     devServer: {
+        historyApiFallback: true,
         static: '../dist',
         open: true,
         compress: true,
-        port: 3000,
+        port: 3010,
         hot: true,
         proxy,
     },

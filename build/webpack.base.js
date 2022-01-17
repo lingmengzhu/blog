@@ -12,6 +12,7 @@ const isProd = process.env.NODE_ENV === 'production';
 module.exports = {
     entry,
     output: {
+        publicPath:'/',
         filename: 'js/[name]_[chunkhash:8].js',
         path: path.resolve(__dirname, '../dist'),
         clean: true, // 相当于CleanWebpackPlugin的作用

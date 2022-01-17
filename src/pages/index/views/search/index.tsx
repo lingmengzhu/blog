@@ -1,9 +1,8 @@
 /* eslint-disable react/no-danger */
 import React, { useState, useEffect } from 'react';
-import { Button, message, Input, List, Avatar } from 'antd';
+import { message, Input, List, Avatar } from 'antd';
 // 引入编辑器组件
-import BraftEditor, { ControlType } from 'braft-editor';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { listArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
@@ -12,6 +11,7 @@ import './index.scss';
 const { Search } = Input;
 const Index = () => {
     console.log('Index');
+    const navigate = useNavigate();
     let { keywords = '' } = useParams();
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(9999);
@@ -53,7 +53,15 @@ const Index = () => {
                             <List.Item className="item">
                                 <List.Item.Meta
                                     avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                    title={<a href={`/#/show/${item._id}`}>{item.title}</a>}
+                                    title={
+                                        <span
+                                            onClick={() => {
+                                                navigate(`/show/${item._id}`);
+                                            }}
+                                        >
+                                            {item.title}
+                                        </span>
+                                    }
                                     description="description"
                                 />
                             </List.Item>

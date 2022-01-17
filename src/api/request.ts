@@ -2,12 +2,7 @@ import axios from 'axios';
 
 const R = axios.create({
     baseURL: '/',
-    timeout: 2000,
-    // headers: {
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //     // 本地run 需要添加authorizationToken用于本地测试
-    //     authorizationToken: token
-    //   }
+    timeout: 3000,
 });
 R.interceptors.request.use(
     (config) => config,

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Space, Input, Button, Popconfirm, message } from 'antd';
 import { listArticle, deleteArticle } from '@/api/article';
+import { useNavigate } from 'react-router-dom';
 import './index.scss';
 
 const { Search } = Input;
 
 const Index = () => {
     console.log('Index');
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [total, setTotal] = useState(0);
@@ -34,7 +36,7 @@ const Index = () => {
     };
 
     const onAdd = () => {
-        window.location.href = '/#/add';
+        navigate('/add');
     };
 
     const onDel = (id: any) => {
@@ -49,8 +51,7 @@ const Index = () => {
     };
 
     const onEdit = (id: any) => {
-        console.log(id);
-        window.location.href = `/#/edit/${id}`;
+        navigate(`/edit/${id}`);
     };
 
     const columns = [

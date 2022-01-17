@@ -1,27 +1,27 @@
 import React, { Suspense } from 'react';
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import routeArr from './route';
+import { connect } from 'react-redux';
 
-import Index from '../views/index';
-import List from '../views/list';
-import Add from '../views/add';
-import Edit from '../views/edit';
-import Show from '../views/show';
-import Search from '../views/search';
-
-const RouterView = () => (
-    <HashRouter>
+const RouterView = (props: any) => {
+    const { token } = props;
+    return (
         <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/list" element={<List />} />
-                <Route path="/add" element={<Add />} />
-                <Route path="/edit/:id" element={<Edit />} />
-                <Route path="/show/:id" element={<Show />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/search/:keywords" element={<Search />} />
+                {routeArr.map((item, index) => {
+                    return (
+                        <Route
+                            key={index}
+                            path={item.path}
+                            element={token || !item.auth ? <item.component /> : <Navigate to="/login" />}
+                        ></Route>
+                    );
+                })}
             </Routes>
         </Suspense>
-    </HashRouter>
-);
-
-export default RouterView;
+    );
+};
+const mapStateToProps = (state: any, ownProps: any) => {
+    return { ...ownProps, token: state.user.token };
+};
+export default connect(mapStateToProps)(RouterView);

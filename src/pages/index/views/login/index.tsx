@@ -1,10 +1,15 @@
 /* eslint-disable react/no-danger */
 import React, { useState, useCallback } from 'react';
 import { Form, Input, Button, Checkbox, message, Modal } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { loginUser, addUser } from '@/api/user';
+import { setUserInfo } from '@/actions/user';
 import './index.scss';
 
-const Index = () => {
+const Index = (props: any) => {
+    const { setUserInfo, token } = props;
+    const navigate = useNavigate();
     const [user, setUser] = useState({} as any);
     const [visible, setVisible] = useState(false);
     const onFinish = (values: any) => {
@@ -20,11 +25,9 @@ const Index = () => {
                 const { _id } = res.data;
                 if (!_id) {
                     setUser({ password: password.trim(), username: username.trim() });
-                    setVisible(true)
+                    setVisible(true);
                 } else {
-                    sessionStorage.setItem('userId', _id);
-                    sessionStorage.setItem('username', username);
-                    window.location.href = '/';
+                    setUserInfo({ userId: _id, username, token: _id });
                 }
             })
             .catch(() => {
@@ -34,12 +37,10 @@ const Index = () => {
     const createUser = useCallback(() => {
         addUser(user)
             .then((res) => {
-                setVisible(false)
+                setVisible(false);
                 // 用户ID
                 const { _id } = res.data;
-                sessionStorage.setItem('userId', _id);
-                sessionStorage.setItem('username', user.username);
-                window.location.href = '/';
+                setUserInfo({ userId: _id, username: user.username, token: _id });
             })
             .catch(() => {
                 message.error('服务器错误');
@@ -50,6 +51,10 @@ const Index = () => {
         console.log('Failed:', errorInfo);
         alert('你输入的内容不合法');
     };
+    // 登录后成功获取token
+    if (token) {
+        navigate('/', { replace: true });
+    }
     return (
         <div className="page-login">
             <div className="layout">
@@ -91,4 +96,11 @@ const Index = () => {
     );
 };
 
-export default Index;
+const mapStateToProps = (state: any, ownProps: any) => {
+    return { ...ownProps, token: state.user.token };
+};
+
+const mapDispatchToProps = (dispatch: any) => ({
+    setUserInfo: (userInfo: any) => dispatch(setUserInfo(userInfo)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Input, List, Avatar, Card, Tooltip, message } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { listArticle } from '@/api/article';
 import code from '../../../../assets/img/code.jpg';
 import './index.scss';
@@ -8,6 +9,7 @@ import './index.scss';
 const { Search } = Input;
 const ArticleList = () => {
     console.log('ArticleList');
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(7);
     const [data, setData] = useState([]);
@@ -28,7 +30,15 @@ const ArticleList = () => {
                 <List.Item>
                     <List.Item.Meta
                         avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                        title={<a href={`/#/show/${item._id}`}>{item.title}</a>}
+                        title={
+                            <span
+                                onClick={() => {
+                                    navigate(`/show/${item._id}`);
+                                }}
+                            >
+                                {item.title}
+                            </span>
+                        }
                         description="description"
                     />
                 </List.Item>
@@ -39,13 +49,13 @@ const ArticleList = () => {
 
 const Header = () => {
     console.log('Header');
-
+    const navigate = useNavigate();
     const onSearch = (value: string) => {
-        window.location.href = `/#/search/${value}`;
+        navigate(`/search/${value}`);
     };
 
     const onList = () => {
-        window.location.href = '/#/list';
+        navigate('/list');
     };
 
     return (
