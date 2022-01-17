@@ -20,14 +20,18 @@ const Index = (props: any) => {
             return;
         }
         loginUser({ password: password.trim(), username: username.trim() })
-            .then((res) => {
+            .then((res: any) => {
                 // 用户ID
-                const { _id } = res.data;
-                if (!_id) {
-                    setUser({ password: password.trim(), username: username.trim() });
-                    setVisible(true);
+                const { token, id } = res.data;
+                if (!token) {
+                    if (!id) {
+                        setUser({ password: password.trim(), username: username.trim() });
+                        setVisible(true);
+                    } else {
+                        message.error(res.msg);
+                    }
                 } else {
-                    setUserInfo({ userId: _id, username, token: _id });
+                    setUserInfo({ userId: id, username: username.trim(), token });
                 }
             })
             .catch(() => {
@@ -39,8 +43,8 @@ const Index = (props: any) => {
             .then((res) => {
                 setVisible(false);
                 // 用户ID
-                const { _id } = res.data;
-                setUserInfo({ userId: _id, username: user.username, token: _id });
+                const { token, id } = res.data;
+                setUserInfo({ userId: id, username: user.username, token: token });
             })
             .catch(() => {
                 message.error('服务器错误');
