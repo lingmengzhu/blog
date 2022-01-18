@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Input, List, Avatar, Card, Tooltip, message } from 'antd';
 import { PlusCircleTwoTone } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { listArticle } from '@/api/article';
+import { listAllArticle } from '@/api/article';
+import { connect } from 'react-redux';
+import { resetUserInfo } from '@/actions/user';
 import code from '../../../../assets/img/code.jpg';
 import './index.scss';
 
@@ -14,31 +16,28 @@ const ArticleList = () => {
     const [pageSize, setPageSize] = useState(7);
     const [data, setData] = useState([]);
     useEffect(() => {
-        listArticle({ page, pageSize })
+        listAllArticle({ page, pageSize })
             .then((res) => {
                 setData(res.data);
             })
             .catch(() => {
                 message.error('服务器错误');
             });
-    }, [setData, listArticle]);
+    }, [setData, listAllArticle]);
     return (
         <List
             itemLayout="horizontal"
             dataSource={data}
             renderItem={(item) => (
-                <List.Item>
+                <List.Item
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                        navigate(`/show/${item._id}`);
+                    }}
+                >
                     <List.Item.Meta
                         avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                        title={
-                            <span
-                                onClick={() => {
-                                    navigate(`/show/${item._id}`);
-                                }}
-                            >
-                                {item.title}
-                            </span>
-                        }
+                        title={item.title}
                         description="description"
                     />
                 </List.Item>
@@ -47,7 +46,7 @@ const ArticleList = () => {
     );
 };
 
-const Header = () => {
+const Header = ({ resetUserInfo, username }: any) => {
     console.log('Header');
     const navigate = useNavigate();
     const onSearch = (value: string) => {
@@ -64,11 +63,19 @@ const Header = () => {
                 <Tooltip title="管理文章">
                     <PlusCircleTwoTone onClick={onList} style={{ fontSize: 48 }} />
                 </Tooltip>
+                <Tooltip title="退出登录">
+                    <PlusCircleTwoTone
+                        onClick={() => {
+                            resetUserInfo();
+                        }}
+                        style={{ fontSize: 48 }}
+                    />
+                </Tooltip>
             </div>
             <div className="layout">
                 <div className="header">
                     <div className="title">
-                        <span>陈航的博客</span>
+                        <span>{username}的博客</span>
                     </div>
                     <div className="search">
                         <Search onSearch={onSearch} style={{ width: 200 }} />
@@ -119,10 +126,16 @@ const Header = () => {
     );
 };
 
-const Index = () => {
+const Index = (prop: any) => {
     console.log('Index');
 
-    return <Header />;
+    return <Header {...prop} />;
+};
+const mapStateToProps = (state: any, ownProps: any) => {
+    return { ...ownProps, username: state.user.username };
 };
 
-export default Index;
+const mapDispatchToProps = (dispatch: any) => ({
+    resetUserInfo: (userInfo: any) => dispatch(resetUserInfo(userInfo)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -3,7 +3,11 @@
         right: 30px;
         top: 50px;
         position: fixed;
+        display: flex;
+        flex-direction: column;
         cursor: pointer;
+        height: 150px;
+        justify-content: space-evenly;
     }
     .layout {
         padding-top: 30px;

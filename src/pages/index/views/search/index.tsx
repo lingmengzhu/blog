@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { message, Input, List, Avatar } from 'antd';
 // 引入编辑器组件
 import { useParams, useNavigate } from 'react-router-dom';
-import { listArticle } from '@/api/article';
+import { listAllArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import './index.scss';
@@ -18,17 +18,17 @@ const Index = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        listArticle({ keywords, page, pageSize })
+        listAllArticle({ keywords, page, pageSize })
             .then((res) => {
                 setData(res.data);
             })
             .catch(() => {
                 message.error('服务器错误');
             });
-    }, [setData, listArticle]);
+    }, [setData, listAllArticle]);
 
     const onSearch = (value: string) => {
-        listArticle({ keywords: value, page, pageSize })
+        listAllArticle({ keywords: value, page, pageSize })
             .then((res) => {
                 setData(res.data);
             })

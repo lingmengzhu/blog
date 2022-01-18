@@ -5,10 +5,14 @@ const R = axios.create({
     timeout: 3000,
 });
 R.interceptors.request.use(
-    (config) => config,
+    (config) => {
+        const token = localStorage.getItem('token');
+        config.headers.Authorization = 'Bearer ' + token;
+
+        return config;
+    },
     (err) => {
         console.log('error', err);
-
         return Promise.reject(err);
     }
 );
