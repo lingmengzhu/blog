@@ -4,6 +4,6 @@ WORKDIR /home/blog-client
 
 COPY dist .
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
