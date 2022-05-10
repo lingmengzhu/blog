@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  application:
+    driver: bridge
+
+services:
+  server:
+    image: blog-server:1.0
+    ports:
+      - 8080:8080
+    networks:
+      -  blog-application
+  client:
+    image: blog-client:1.0
+    ports:
+      - 9999:80
+    networks:
+      - blog-application
