@@ -61,7 +61,7 @@ module.exports = {
             },
             // 解析图片资源
             {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|jpg|jpeg|gif)$/i,
                 type: 'asset',
                 parser: {
                     dataUrlCondition: {
@@ -71,6 +71,26 @@ module.exports = {
                 generator: {
                     filename: 'img/[name][hash][ext][query]',
                 },
+            },
+            // 解析图标资源
+            {
+                test: /\.svg$/,
+                exclude: /^node_modules$/,
+                include: [path.join(__dirname, '../src/assets/icons')],
+                use: [
+                  {
+                    loader: 'svg-sprite-loader',
+                    options: {
+                      symbolId: 'icon-[name]',
+                      extract: false,
+                      spriteFilename: (svgPath) => `sprite${svgPath.substr(-4)}`
+                    }
+                  },
+                  {
+                    loader: 'svgo-loader',
+                    options: {}
+                  }
+                ]
             },
             // 解析字体资源
             {

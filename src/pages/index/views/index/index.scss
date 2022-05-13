@@ -1,95 +1,88 @@
-.page-index {
-    .fixed-menu {
-        right: 30px;
-        top: 50px;
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        cursor: pointer;
-        height: 150px;
-        justify-content: space-evenly;
-    }
-    .layout {
-        padding-top: 30px;
-        width: 80vw;
+.page-header {
+    border: none;
+    border-radius: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 4%);
+    .container {
+        width: 80%;
+        height: 50px;
         margin: auto;
-    }
-    .header {
         display: flex;
-        width: 100%;
-        height: 32px;
-        padding: 0 15px;
         justify-content: space-between;
-        .title {
-            height: 24px;
-            line-height: 24px;
-            font-size: 16px;
-            font-weight: 500;
+        align-items: center;
+        padding: 0 8px;
+        .category {
+            display: flex;
+            align-items: center;
+            .item {
+                margin-right: 16px;
+                font-size: 14px;
+                font-weight: 500;
+            }
         }
-        .search {
-            height: 48px;
+        .person {
+            display: flex;
+            align-items: center;
+            div {
+                height: auto;
+                margin-left: 16px;
+                display: flex;
+                align-items: center;
+            }
         }
     }
-    .divider {
-        padding-top: 8px;
-        width: 100%;
-        height: 0px;
-        border-bottom: 1px solid black;
-    }
+}
+.page-content {
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
     .content {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 70vh;
-        .article {
-            width: 64%;
-            padding: 8px 0;
-            .header {
-                height: 18px;
-                .title {
-                    font-size: 14px;
-                    line-height: 18px;
-                    font-weight: 400;
-                }
+        width: 80%;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-column-gap: 16px;
+        min-height: 200px;
+        .card-left {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            grid-row-gap: 16px;
+            .side-carousel {
+                height: 280px;
+                background: #fff;
             }
-            .divider {
+            .side-doc {
+                height: 200px;
+                background: #fff;
             }
-            .list {
-                height: 60vh;
-            }
-            .more {
-                display: inline-block;
-                line-height: 16px;
-                height: 16px;
-                font-size: 16px;
-                padding: 0 12px;
-                &:hover {
-                    color: #00ccd9;
-                    cursor: pointer;
-                }
+            .side-article {
+                height: 600px;
+                background: #fff;
             }
         }
-        .info-card {
-            width: 24%;
-            padding-top: 36px;
-            .message {
+        .card-right {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            grid-row-gap: 16px;
+            .side-img {
+                height: 150px;
+                background: #fff;
             }
-            .author {
-                margin-top: 20px;
+            .side-tags {
+                height: 300px;
+                background: #fff;
             }
-            .card-content {
-                height: 105px;
+            .side-group {
+                height: 400px;
+                background: #fff;
             }
-        }
-    }
-    .footer {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 12px;
-        .contact {
-            text-align: center;
-            .code {
-                height: 120px;
+            .side-friendship {
+                height: 150px;
+                background: #fff;
             }
         }
     }
