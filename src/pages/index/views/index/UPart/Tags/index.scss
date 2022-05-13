@@ -1,0 +1,114 @@
+.tags {
+    .uh {
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        align-items: center;
+        border: 1px solid #f0f0f0;
+        .ut {
+            line-height: 46px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .uo {
+            cursor: pointer;
+        }
+    }
+    .uc {
+        width: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        padding: 20px 14px;
+        .warper {
+            height: 42px;
+            margin: 0 6px;
+            .uItem {
+                line-height: 30px;
+                height: 30px;
+                font-size: 14px;
+                padding: 0 12px;
+                border: 1px solid #efefef;
+                border-radius: 3px;
+                cursor: pointer;
+                &:hover {
+                    color: #00c3d9;
+                    border: 1px solid rgba(0, 204, 217, 0.5);
+                }
+            }
+            .linkItem {
+                cursor: pointer;
+                &:hover {
+                    color: #00c3d9;
+                }
+            }
+        }
+    }
+    .uc-link {
+        width: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        padding: 20px 20px;
+        .warper {
+            height: 30px;
+            margin: 0 6px;
+            .linkItem {
+                cursor: pointer;
+                &:hover {
+                    color: #00c3d9;
+                }
+            }
+        }
+    }
+    .uc-author {
+        width: 300px;
+        padding: 20px 20px;
+        .auItem {
+            display: flex;
+            height: 48px;
+            align-items: center;
+            margin-bottom: 12px;
+            .icon {
+                width: 48px;
+                height: 48px;
+                overflow: hidden;
+                border-radius: 100%;
+                background-image: url('~@/assets/images/10000.png');
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                cursor: pointer;
+            }
+            .au-content {
+                padding: 0 8px;
+                width: 140px;
+                .row-01,
+                .row-02 {
+                    line-height: 24px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+            .attention {
+                width: auto;
+                border: 1px solid #f0f0f0;
+                border-radius: 20px;
+                padding: 0 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 24px;
+                cursor: pointer;
+                &:hover {
+                    color: #00c3d9;
+                }
+            }
+        }
+    }
+    .uc-doc {
+        width: 500px;
+    }
+}

@@ -1,21 +1,37 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Carousel } from 'antd';
 import './index.scss';
 
 export interface Props {
     style?: React.CSSProperties;
     className?: String;
-    iconClass?: String;
 }
+const contentStyle = {
+    height: '400px',
+};
 
-const Carousel: React.FC<Props> = (props: Props) => {
-    const { className, iconClass, style } = props;
+const UCarousel: React.FC<Props> = (props: Props) => {
+    const { className, style } = props;
 
     return (
-        <svg className={classNames('svgIcon', className && className)} style={style} aria-hidden>
-            <use xlinkHref={`#icon-${iconClass}`} />
-        </svg>
+        <div className={classNames('carousel', className && className)} style={style}>
+            <Carousel autoplay>
+                <div>
+                    <div style={contentStyle} className="carousel-01"></div>
+                </div>
+                <div>
+                    <div style={contentStyle} className="carousel-02"></div>
+                </div>
+                <div>
+                    <div style={contentStyle} className="carousel-03"></div>
+                </div>
+                <div>
+                    <div style={contentStyle} className="carousel-04"></div>
+                </div>
+            </Carousel>
+        </div>
     );
 };
 
-export default Carousel;
+export default UCarousel;

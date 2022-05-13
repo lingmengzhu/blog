@@ -3,6 +3,8 @@ import { Input } from 'antd';
 import { connect } from 'react-redux';
 import { resetUserInfo } from '@/actions/user';
 import UIcon from '@/component/UIcon';
+import Carousel from '@/component/Carousel';
+import Tags from './UPart/Tags/index';
 
 import './index.scss';
 
@@ -44,16 +46,25 @@ const Content = ({ resetUserInfo, username }: any) => {
         <div className="page-content">
             <div className="content">
                 <div className="card-left">
-                    <div className="side-carousel"></div>
-                    <div className="side-doc"></div>
+                    <div className="side-carousel">
+                        <Carousel></Carousel>
+                    </div>
+                    <div className="side-doc">
+                        <Tags url="" title="最新手册" type="doc"></Tags>
+                    </div>
                     <div className="side-article"></div>
                 </div>
 
                 <div className="card-right">
-                    <div className="side-img"></div>
-                    <div className="side-tags"></div>
-                    <div className="side-group"></div>
-                    <div className="side-friendship"></div>
+                    <div className="side-tags">
+                        <Tags url="" title="热门标签" type="tags"></Tags>
+                    </div>
+                    <div className="side-group">
+                        <Tags url="" title="推荐作者" type="author"></Tags>
+                    </div>
+                    <div className="side-friendship">
+                        <Tags url="" title="友情链接" type="link"></Tags>
+                    </div>
                 </div>
             </div>
         </div>

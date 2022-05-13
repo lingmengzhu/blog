@@ -42,9 +42,8 @@
     display: flex;
     justify-content: center;
     .content {
-        width: 80%;
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 700px 300px;
         grid-column-gap: 16px;
         min-height: 200px;
         .card-left {
@@ -52,8 +51,10 @@
             grid-template-rows: auto auto auto;
             grid-row-gap: 16px;
             .side-carousel {
-                height: 280px;
+                height: 400px;
                 background: #fff;
+                display: flex;
+                justify-content: center;
             }
             .side-doc {
                 height: 200px;
@@ -65,23 +66,21 @@
             }
         }
         .card-right {
-            display: grid;
-            grid-template-rows: auto auto auto;
-            grid-row-gap: 16px;
-            .side-img {
-                height: 150px;
-                background: #fff;
-            }
             .side-tags {
-                height: 300px;
+                min-height: 300px;
+                height: auto;
                 background: #fff;
+                margin-bottom: 16px;
             }
             .side-group {
-                height: 400px;
+                min-height: 400px;
+                height: auto;
                 background: #fff;
+                margin-bottom: 16px;
             }
             .side-friendship {
-                height: 150px;
+                min-height: 150px;
+                height: auto;
                 background: #fff;
             }
         }
