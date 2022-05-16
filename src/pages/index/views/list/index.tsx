@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Space, Input, Button, Popconfirm, message } from 'antd';
 import { listArticle, deleteArticle } from '@/api/article';
 import { useNavigate } from 'react-router-dom';
-import './index.scss';
+import './index.less';
 
 const { Search } = Input;
 

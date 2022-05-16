@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames'
-import './index.scss'
+import styleModule from './index.module.less';
 
 // 定义一个加载目录的函数
 const requireAll = (requireContext: any) => {
@@ -22,7 +22,7 @@ const UIcon: React.FC<SvgProps> = (props: SvgProps) => {
     const { className, iconClass, style, onClick } = props;
 
     return (
-        <svg className={classNames('svgIcon', className && className)} onClick={onClick} style={style} aria-hidden>
+        <svg className={classNames(styleModule.svgIcon, className && className)} onClick={onClick} style={style} aria-hidden>
             <use xlinkHref={`#icon-${iconClass}`} />
         </svg>
     );

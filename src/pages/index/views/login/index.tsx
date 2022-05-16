@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser, addUser } from '@/api/user';
 import { setUserInfo } from '@/actions/user';
-import './index.scss';
+import './index.less';
 
 const Index = (props: any) => {
     const { setUserInfo, token } = props;

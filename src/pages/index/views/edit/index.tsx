@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { getArticle, updateArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
-import './index.scss';
+import './index.less';
 
 const Index = () => {
     console.log('Index');

@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { listAllArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
-import './index.scss';
+import './index.less';
 
 const { Search } = Input;
 const Index = () => {
