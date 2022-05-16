@@ -14,6 +14,6 @@
             "@/*": ["./src/*"]
         }
     },
-    "include": ["./src/**/*", "images.d.ts"],
+    "include": ["./src/**/*"],
     "exclude": ["node_modules"]
 }

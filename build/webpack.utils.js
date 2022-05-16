@@ -3,7 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const isProd = process.env.NODE_ENV === 'production';// https://webpack.docschina.org/api/cli/#node-env
+const isProd = process.env.NODE_ENV === 'production'; // https://webpack.docschina.org/api/cli/#node-env
 
 const getPageName = (filePath) => {
     const match = filePath.match(/src\/pages\/([^/]*)/);
@@ -37,7 +37,7 @@ const getMPA = () => {
                     // html5:true,
                     minifyJS: true,
                 },
-            }),
+            })
         );
     });
 
@@ -51,22 +51,31 @@ const getMPA = () => {
  * 获取样式文件的loaders
  * @param {*} preprocessor 采用何种预处理器
  */
-const getStyleFileLoaders = (preprocessor) => {
-    const styleFileLoaders = [
-        isProd ? MiniCssExtractPlugin.loader : 'style-loader', // css生产环境抽离
-        'css-loader',
-        {
-            loader: 'postcss-loader',
-            options: {
-                postcssOptions: {
-                    plugins: ['postcss-preset-env'],
-                    // plugins: ['postcss-preset-env', ['postcss-pxtorem', { rootValue: 37.5, propList: ['*'] }]],
-                },
+const getStyleFileLoaders = (preprocessor, module = false) => {
+    const styleLoader = isProd ? MiniCssExtractPlugin.loader : 'style-loader';
+    const cssLoader = module
+        ? {
+              loader: 'css-loader',
+              options: {
+                  modules: { localIdentName: '[hash:base64:6]' },
+              },
+          }
+        : 'css-loader';
+    const postcssLoader = {
+        loader: 'postcss-loader',
+        options: {
+            postcssOptions: {
+                plugins: ['postcss-preset-env'],
             },
         },
+    };
+    const styleFileLoaders = [
+        styleLoader, // css生产环境抽离
+        cssLoader,
+        postcssLoader,
     ];
 
-    preprocessor && styleFileLoaders.push(preprocessor);// 预处理器
+    preprocessor && styleFileLoaders.push(preprocessor); // 预处理器
 
     return styleFileLoaders;
 };

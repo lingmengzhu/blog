@@ -6,13 +6,15 @@ const { getMPA, getStyleFileLoaders } = require('./webpack.utils');
 
 // 配置多页
 const { entry, htmlWebpackPlugins } = getMPA();
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
 
 const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
     entry,
     output: {
-        publicPath:'/',
+        publicPath: '/',
         filename: 'js/[name]_[chunkhash:8].js',
         path: path.resolve(__dirname, '../dist'),
         clean: true, // 相当于CleanWebpackPlugin的作用
@@ -21,18 +23,10 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, '../src'),
         },
-        extensions: [
-            '.ts',
-            '.tsx',
-            '.js',
-            '.jsx',
-            '.json',
-            '.css',
-            '.scss',
-            '.less',
-        ],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.css', '.scss', '.less'],
     },
-    cache: { // 开启构建结果缓存
+    cache: {
+        // 开启构建结果缓存
         type: isProd ? 'filesystem' : 'memory',
     },
     module: {
@@ -40,10 +34,7 @@ module.exports = {
             // 使用babel-loader解析ts、js、tsx、jsx文件
             {
                 test: /\.(jsx?|tsx?)$/,
-                use: [
-                    'thread-loader',
-                    'babel-loader',
-                ],
+                use: ['thread-loader', 'babel-loader'],
                 exclude: /node_modules/,
             },
             // 解析css文件
@@ -56,9 +47,15 @@ module.exports = {
                 use: getStyleFileLoaders('sass-loader'),
             },
             {
-                test: /\.less$/,
+                test: lessRegex,
+                exclude: lessModuleRegex,
                 use: getStyleFileLoaders('less-loader'),
             },
+            {
+                test: lessModuleRegex,
+                use: getStyleFileLoaders('less-loader', true),
+            },
+
             // 解析图片资源
             {
                 test: /\.(png|jpg|jpeg|gif)$/i,
@@ -78,19 +75,19 @@ module.exports = {
                 exclude: /^node_modules$/,
                 include: [path.join(__dirname, '../src/assets/icons')],
                 use: [
-                  {
-                    loader: 'svg-sprite-loader',
-                    options: {
-                      symbolId: 'icon-[name]',
-                      extract: false,
-                      spriteFilename: (svgPath) => `sprite${svgPath.substr(-4)}`
-                    }
-                  },
-                  {
-                    loader: 'svgo-loader',
-                    options: {}
-                  }
-                ]
+                    {
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            symbolId: 'icon-[name]',
+                            extract: false,
+                            spriteFilename: (svgPath) => `sprite${svgPath.substr(-4)}`,
+                        },
+                    },
+                    {
+                        loader: 'svgo-loader',
+                        options: {},
+                    },
+                ],
             },
             // 解析字体资源
             {
