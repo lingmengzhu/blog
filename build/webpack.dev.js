@@ -9,7 +9,7 @@ module.exports = {
         static: '../dist',
         open: true,
         compress: true,
-        port: 3010,
+        port: 4010,
         hot: true,
         proxy,
     },
