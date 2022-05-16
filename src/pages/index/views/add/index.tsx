@@ -7,7 +7,7 @@ import BraftEditor, { ControlType } from 'braft-editor';
 import { addArticle } from '@/api/article';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
-import './index.less';
+import styleModule from './index.module.less';
 
 const Index = () => {
     console.log('Index');
@@ -66,10 +66,10 @@ const Index = () => {
     };
 
     return (
-        <div className="page-add">
-            <div className="layout">
-                <div className="header">
-                    <div className="title-input">
+        <div className={styleModule.pageAdd}>
+            <div className={styleModule.layout}>
+                {/* <div className={styleModule.header}>
+                    <div className={styleModule.titleInput}>
                         <Input
                             size="large"
                             placeholder="输入文章标题"
@@ -80,19 +80,19 @@ const Index = () => {
                     <Button type="primary" onClick={onSubmit}>
                         保存
                     </Button>
-                </div>
-                <div className="content">
+                </div> */}
+                <div className={styleModule.content}>
                     <BraftEditor
-                        className="editor"
+                        className={styleModule.editor}
                         controls={controls}
                         value={editorState}
                         onChange={handleEditorChange}
                     />
 
-                    <div
-                        className="preview braft-output-content"
+                    {/* <div
+                        className={styleModule.preview}
                         dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
-                    />
+                    /> */}
                 </div>
             </div>
         </div>

@@ -1,7 +1,10 @@
 {
     "prettier.singleQuote": true,
     "prettier.tabWidth": 4,
-    "prettier.printWidth": 120 // 超过最大值换行
+    "prettier.printWidth": 120,
+    "cSpell.words": [
+        "Braft"
+    ] // 超过最大值换行
     /*  prettier的配置 
     "prettier.printWidth": 100, // 超过最大值换行
     "prettier.tabWidth": 4, // 缩进字节数
