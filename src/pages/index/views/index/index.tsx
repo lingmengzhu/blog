@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { resetUserInfo } from '@/actions/user';
 import UIcon from '@/component/UIcon';
@@ -52,7 +53,9 @@ const Content = ({ resetUserInfo, username }: any) => {
                     <div className="side-doc">
                         <Tags url="" title="最新手册" type="doc"></Tags>
                     </div>
-                    <div className="side-article"></div>
+                    <div className="side-article">
+                        <Tags url="" title="最新文章" type="article"></Tags>
+                    </div>
                 </div>
 
                 <div className="card-right">
@@ -70,6 +73,33 @@ const Content = ({ resetUserInfo, username }: any) => {
         </div>
     );
 };
+const Footer = (prop: any) => {
+    console.log('Index');
+
+    return (
+        <div className="page-footer">
+            <div className="line-01">
+                <div>捐赠本站</div>
+                <div>友情链接</div>
+                <div>使用规范</div>
+                <div>服务协议</div>
+                <div>关于站长</div>
+            </div>
+            <div className="line-02">
+                <div>备案号：182457328234</div>
+            </div>
+        </div>
+    );
+};
+const Tool = () => {
+    console.log('Index');
+
+    return (
+        <div className="page-tool">
+            <ArrowUpOutlined style={{ color: '#999', fontSize: '18px' }} />
+        </div>
+    );
+};
 const Index = (prop: any) => {
     console.log('Index');
 
@@ -77,6 +107,8 @@ const Index = (prop: any) => {
         <div>
             <Header {...prop} />
             <Content {...prop} />
+            <Footer {...prop} />
+            <Tool />
         </div>
     );
 };

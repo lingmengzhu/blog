@@ -1,5 +1,6 @@
 import React from 'react';
-import { Carousel } from 'antd';
+import { Carousel, Pagination } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import './index.scss';
 
 export interface Props {
@@ -121,20 +122,149 @@ const Tags: React.FC<Props> = (props: Props) => {
         case 'doc':
             UC = (
                 <div className="uc-doc">
-                    <Carousel autoplay>
+                    <Carousel dots={false}>
                         <div>
-                            <div style={contentStyle} className="carousel-01"></div>
+                            <div className="doc-item carousel-01">
+                                <div className="item-before">
+                                    <LeftOutlined style={{ color: '#fff' }} />
+                                </div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-after">
+                                    <RightOutlined style={{ color: '#fff' }} />
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <div style={contentStyle} className="carousel-02"></div>
+                            <div className="doc-item carousel-02">
+                                <div className="item-before">
+                                    <LeftOutlined style={{ color: '#fff' }} />
+                                </div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-after">
+                                    <RightOutlined style={{ color: '#fff' }} />
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <div style={contentStyle} className="carousel-03"></div>
+                            <div className="doc-item carousel-03">
+                                <div className="item-before">
+                                    <LeftOutlined style={{ color: '#fff' }} />
+                                </div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-after">
+                                    <RightOutlined style={{ color: '#fff' }} />
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <div style={contentStyle} className="carousel-04"></div>
+                            <div className="doc-item carousel-04">
+                                <div className="item-before">
+                                    <LeftOutlined style={{ color: '#fff' }} />
+                                </div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-instance"></div>
+                                <div className="item-after">
+                                    <RightOutlined style={{ color: '#fff' }} />
+                                </div>
+                            </div>
                         </div>
                     </Carousel>
+                </div>
+            );
+            break;
+        case 'article':
+            UC = (
+                <div className="uc-article">
+                    <div className="articleList">
+                        <div className="articleItem">
+                            <div className="title">第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
+                            {/* <div className="image">
+                                <img src="" alt="" />
+                            </div> */}
+                            <div className="text">{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
+                            <div className="mark">
+                                <div className="author">艾拉</div>
+                                <div className="time">一小时前</div>
+                                <div className="read">浏览 800</div>
+                                <div className="comment">评论 10</div>
+                                <div className="collect">收藏 10</div>
+                            </div>
+                        </div>
+                        <div className="articleItem">
+                            <div className="title">第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
+                            {/* <div className="image">
+                                <img src="" alt="" />
+                            </div> */}
+                            <div className="text">{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
+                            <div className="mark">
+                                <div className="author">艾拉</div>
+                                <div className="time">一小时前</div>
+                                <div className="read">浏览 800</div>
+                                <div className="comment">评论 10</div>
+                                <div className="collect">收藏 10</div>
+                            </div>
+                        </div>
+                        <div className="articleItem">
+                            <div className="title">第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
+                            {/* <div className="image">
+                                <img src="" alt="" />
+                            </div> */}
+                            <div className="text">{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
+                            <div className="mark">
+                                <div className="author">艾拉</div>
+                                <div className="time">一小时前</div>
+                                <div className="read">浏览 800</div>
+                                <div className="comment">评论 10</div>
+                                <div className="collect">收藏 10</div>
+                            </div>
+                        </div>
+                        <div className="articleItem">
+                            <div className="title">第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
+                            {/* <div className="image">
+                                <img src="" alt="" />
+                            </div> */}
+                            <div className="text">{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
+                            <div className="mark">
+                                <div className="author">艾拉</div>
+                                <div className="time">一小时前</div>
+                                <div className="read">浏览 800</div>
+                                <div className="comment">评论 10</div>
+                                <div className="collect">收藏 10</div>
+                            </div>
+                        </div>
+                        <div className="articleItem">
+                            <div className="title">第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
+                            {/* <div className="image">
+                                <img src="" alt="" />
+                            </div> */}
+                            <div className="text">{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
+                            <div className="mark">
+                                <div className="author">艾拉</div>
+                                <div className="time">一小时前</div>
+                                <div className="read">浏览 800</div>
+                                <div className="comment">评论 10</div>
+                                <div className="collect">收藏 10</div>
+                            </div>
+                        </div>
+                        <div className='pagination'>
+                            <Pagination defaultCurrent={6} total={500} />
+                        </div>
+                    </div>
                 </div>
             );
             break;

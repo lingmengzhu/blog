@@ -48,20 +48,17 @@
         min-height: 200px;
         .card-left {
             display: grid;
-            grid-template-rows: auto auto auto;
+            grid-template-rows: 400px 200px minmax(600, auto);
             grid-row-gap: 16px;
             .side-carousel {
-                height: 400px;
                 background: #fff;
                 display: flex;
                 justify-content: center;
             }
             .side-doc {
-                height: 200px;
                 background: #fff;
             }
             .side-article {
-                height: 600px;
                 background: #fff;
             }
         }
@@ -85,4 +82,32 @@
             }
         }
     }
+}
+.page-footer {
+    color: #c0c6cc;
+    text-align: center;
+    padding: 20px 0 20px;
+    position: relative;
+    font-size: 12px;
+    .line-01 {
+        div {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
+    .line-02 {
+        margin-top: 12px;
+    }
+}
+.page-tool {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 999;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
 }
