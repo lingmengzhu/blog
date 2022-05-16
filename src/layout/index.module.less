@@ -1,0 +1,41 @@
+.layout {
+    .pageHeader {
+        border: none;
+        border-radius: 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 0 2px 3px rgb(0 0 0 / 4%);
+        .container {
+            width: 80%;
+            height: 50px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+            .category {
+                display: flex;
+                align-items: center;
+                .item {
+                    margin-right: 16px;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+            }
+            .person {
+                display: flex;
+                align-items: center;
+                div {
+                    height: auto;
+                    margin-left: 16px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
