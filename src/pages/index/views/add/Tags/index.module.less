@@ -1,0 +1,33 @@
+.tags {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    & > span {
+        margin-bottom: 10px;
+    }
+    :global {
+        .ant-input-affix-wrapper {
+            padding-right: 2px !important;
+        }
+    }
+    .icon {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        height: 24px;
+    }
+    .addTags {
+        .success {
+            cursor: pointer;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+        .cancel {
+            cursor: pointer;
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+}

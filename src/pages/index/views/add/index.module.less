@@ -1,15 +1,9 @@
 .pageAdd {
     .layout {
-        padding: 0px 20px;
-        .header {
-            height: 48px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        width: 100vw;
         .content {
+            padding: 0 20px;
             display: flex;
-            width: 100%;
             justify-content: center;
             .bfControlBar {
                 display: flex;
@@ -19,16 +13,25 @@
                 }
             }
             .editor {
-                width: 50%;
+                width: 920px;
                 min-height: 800px;
                 background-color: #fff;
             }
-            // .preview {
-            //     margin-left: 2%;
-            //     width: 48%;
-            //     min-height: 800px;
-            //     background-color: #fff;
-            // }
+        }
+    }
+}
+.preview {
+    height: 88vh;
+    background-color: #fff;
+}
+.Form {
+    .item {
+        display: flex;
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+        .label {
+            min-width: 60px;
         }
     }
 }

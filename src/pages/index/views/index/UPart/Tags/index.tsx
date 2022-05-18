@@ -1,14 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel, Pagination } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styleModule from './index.module.less';
+import { listAllArticle } from '@/api/article';
+import moment from 'moment';
 
 export interface Props {
     url: String;
     title: String;
     type: String;
 }
+const Article = () => {
+    const [loading, setLoading] = useState(false);
+    const [article, setArticle] = useState([]);
+    const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
+    const { current, pageSize, total } = pagination;
+    // 获取文章
+    const getArticle = () => {
+        listAllArticle({ current, pageSize }).then((res: any) => {
+            setArticle(res.data);
+            setPagination({ ...pagination, total: res.total });
+        });
+    };
+    const onChange = (page: any, size: any) => {
+        console.log(page, size);
+        setPagination({ ...pagination, current: page, pageSize: size });
+    };
+    useEffect(() => {
+        getArticle();
+    }, [pagination.current, pagination.pageSize]);
+    return (
+        <div className={styleModule.ucArticle}>
+            <div className={styleModule.articleList}>
+                {article.map((item) => {
+                    return (
+                        <div key={item.articleId} className={styleModule.articleItem}>
+                            <div className={styleModule.title}>{item.title}</div>
+                            <div className={styleModule.text} dangerouslySetInnerHTML={{ __html: item.content }}></div>
+                            <div className={styleModule.mark}>
+                                <div className={styleModule.author}>{item.userId}</div>
+                                <div className={styleModule.time}>{moment(item.createTime).fromNow()}</div>
+                                <div className={styleModule.read}>浏览 {item.readNum || 0}</div>
+                                <div className={styleModule.comment}>评论 {item.commentNum || 0}</div>
+                                <div className={styleModule.collect}>收藏 {item.collectNum || 0}</div>
+                            </div>
+                        </div>
+                    );
+                })}
+
+                <div className={styleModule.pagination}>
+                    <Pagination
+                        showTotal={(total) => `${total} items`}
+                        current={current}
+                        total={total}
+                        pageSize={pageSize}
+                        showSizeChanger
+                        onChange={onChange}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
 const Tags: React.FC<Props> = (props: Props) => {
     const { url, title, type } = props;
     const contentStyle = {
@@ -189,95 +243,7 @@ const Tags: React.FC<Props> = (props: Props) => {
             );
             break;
         case 'article':
-            UC = (
-                <div className={styleModule.ucArticle}>
-                    <div className={styleModule.articleList}>
-                        <div className={styleModule.articleItem}>
-                            <div className={styleModule.title}>第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
-                            {/* <div className={styleModule.image}>
-                                <img src="" alt="" />
-                            </div> */}
-                            <div
-                                className={styleModule.text}
-                            >{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
-                            <div className={styleModule.mark}>
-                                <div className={styleModule.author}>艾拉</div>
-                                <div className={styleModule.time}>一小时前</div>
-                                <div className={styleModule.read}>浏览 800</div>
-                                <div className={styleModule.comment}>评论 10</div>
-                                <div className={styleModule.collect}>收藏 10</div>
-                            </div>
-                        </div>
-                        <div className={styleModule.articleItem}>
-                            <div className={styleModule.title}>第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
-                            {/* <div className={styleModule.image}>
-                                <img src="" alt="" />
-                            </div> */}
-                            <div
-                                className={styleModule.text}
-                            >{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
-                            <div className={styleModule.mark}>
-                                <div className={styleModule.author}>艾拉</div>
-                                <div className={styleModule.time}>一小时前</div>
-                                <div className={styleModule.read}>浏览 800</div>
-                                <div className={styleModule.comment}>评论 10</div>
-                                <div className={styleModule.collect}>收藏 10</div>
-                            </div>
-                        </div>
-                        <div className={styleModule.articleItem}>
-                            <div className={styleModule.title}>第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
-                            {/* <div className={styleModule.image}>
-                                <img src="" alt="" />
-                            </div> */}
-                            <div
-                                className={styleModule.text}
-                            >{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
-                            <div className={styleModule.mark}>
-                                <div className={styleModule.author}>艾拉</div>
-                                <div className={styleModule.time}>一小时前</div>
-                                <div className={styleModule.read}>浏览 800</div>
-                                <div className={styleModule.comment}>评论 10</div>
-                                <div className={styleModule.collect}>收藏 10</div>
-                            </div>
-                        </div>
-                        <div className={styleModule.articleItem}>
-                            <div className={styleModule.title}>第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
-                            {/* <div className={styleModule.image}>
-                                <img src="" alt="" />
-                            </div> */}
-                            <div
-                                className={styleModule.text}
-                            >{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
-                            <div className={styleModule.mark}>
-                                <div className={styleModule.author}>艾拉</div>
-                                <div className={styleModule.time}>一小时前</div>
-                                <div className={styleModule.read}>浏览 800</div>
-                                <div className={styleModule.comment}>评论 10</div>
-                                <div className={styleModule.collect}>收藏 10</div>
-                            </div>
-                        </div>
-                        <div className={styleModule.articleItem}>
-                            <div className={styleModule.title}>第 10 题：常见异步笔试题，请写出代码的运行结果 </div>
-                            {/* <div className={styleModule.image}>
-                                <img src="" alt="" />
-                            </div> */}
-                            <div
-                                className={styleModule.text}
-                            >{`从一道题浅说 JavaScript 的事件循环 注：本篇文章运行环境为当前最新版本的谷歌浏览器（72.0.3626.109） 最近看到这样一道有关事件循环的前端面试题： //请写出输出内容 async function async1() { console.log('async1 start'); await async2(); console.log('async1 end'); } async…`}</div>
-                            <div className={styleModule.mark}>
-                                <div className={styleModule.author}>艾拉</div>
-                                <div className={styleModule.time}>一小时前</div>
-                                <div className={styleModule.read}>浏览 800</div>
-                                <div className={styleModule.comment}>评论 10</div>
-                                <div className={styleModule.collect}>收藏 10</div>
-                            </div>
-                        </div>
-                        <div className={styleModule.pagination}>
-                            <Pagination defaultCurrent={6} total={500} />
-                        </div>
-                    </div>
-                </div>
-            );
+            UC = <Article />;
             break;
         default:
             break;
