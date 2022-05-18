@@ -1,7 +1,6 @@
 import R from './request';
-const loginUser = (user: any) => R.post('/api/user/login', user);
-const addUser = (user: any) => R.post('/api/user', user);
-const listUser = (query: any) => {
+
+const listTags = (query: any) => {
     let queryString = '';
     if (Object.keys(query).length > 0) {
         queryString += '?';
@@ -13,6 +12,6 @@ const listUser = (query: any) => {
             }
         });
     }
-    return R.get(`/api/user${queryString}`);
+    return R.get(`/api/tags${queryString}`);
 };
-export { loginUser, addUser, listUser };
+export { listTags };
