@@ -6,7 +6,7 @@ import Show from '../views/show';
 import Search from '../views/search';
 
 export default [
-    { path: '/', name: 'App', component: Index, auth: true },
+    { path: '/', name: 'App', component: Index, auth: false },
     { path: '/list', name: 'List', component: List, auth: true },
     { path: '/add', name: 'Add', component: Add, auth: true },
     { path: '/edit/:id', name: 'Edit', component: Edit, auth: true },

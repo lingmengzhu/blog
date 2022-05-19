@@ -1,14 +1,27 @@
-import React from 'react';
-import { BackTop, Input } from 'antd';
+import React, { useState, useContext } from 'react';
+import { Input } from 'antd';
+import { Scrollbars } from 'rc-scrollbars';
 import { useNavigate } from 'react-router-dom';
 import { ArrowUpOutlined, FormOutlined } from '@ant-design/icons';
+import UModal from '@/component/UModal';
+import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import UIcon from '@/component/UIcon';
+// 登出
+import { resetUserInfo } from '@/actions/user';
 import styleModule from './index.module.less';
 
 const { Search } = Input;
 const iconStyle = { height: '24px', width: '24px', fill: '#777' };
-
+interface LayoutProps {
+    userInfo?: any;
+    resetUserInfo?: Function;
+}
+interface LayoutContextProps extends LayoutProps {
+    visible?: boolean;
+    setVisible?: Function;
+}
+const LayoutContext = React.createContext<LayoutContextProps>({});
 const Footer = () => {
     return (
         <div className={styleModule.pageFooter}>
@@ -50,6 +63,9 @@ const Tool = () => {
     );
 };
 const Header = () => {
+    const { setVisible, userInfo, resetUserInfo } = useContext<LayoutContextProps>(LayoutContext);
+    const { token } = userInfo;
+    console.log('token', token);
     const navigate = useNavigate();
     return (
         <div className={styleModule.pageHeader}>
@@ -67,30 +83,70 @@ const Header = () => {
                         <Search placeholder="搜索关键字" onSearch={() => {}} style={{ width: 260 }} />
                     </div>
                 </div>
-                <div className={styleModule.person}>
-                    <div className={styleModule.weixin}>
-                        <UIcon iconClass="weixin" style={iconStyle} />
+                {token ? (
+                    <div className={styleModule.person}>
+                        <div className={styleModule.weixin}>
+                            <UIcon iconClass="weixin" style={iconStyle} />
+                        </div>
+                        <div className={styleModule.login} onClick={() => resetUserInfo()}>
+                            登出
+                        </div>
                     </div>
-                    <div className={styleModule.qq}>
-                        <UIcon iconClass="qq" style={iconStyle} />
+                ) : (
+                    <div className={styleModule.person}>
+                        <div className={styleModule.weixin}>
+                            <UIcon iconClass="weixin" style={iconStyle} />
+                        </div>
+                        <div className={styleModule.qq}>
+                            <UIcon iconClass="qq" style={iconStyle} />
+                        </div>
+                        <div className={styleModule.github}>
+                            <UIcon iconClass="github" style={iconStyle} />
+                        </div>
+                        <div className={styleModule.login} onClick={() => setVisible(true)}>
+                            登录
+                        </div>
                     </div>
-                    <div className={styleModule.github}>
-                        <UIcon iconClass="github" style={iconStyle} />
-                    </div>
-                    <div className={styleModule.login}>登录</div>
-                </div>
+                )}
             </div>
         </div>
     );
 };
-const Layout = () => {
+const LoginModal = () => {
+    const { visible, setVisible } = useContext<LayoutContextProps>(LayoutContext);
     return (
-        <div className={styleModule.layout}>
-            <Header />
-            <Outlet />
-            <Footer />
-            <Tool />
-        </div>
+        <UModal
+            title="登录"
+            visible={visible}
+            wrapClassName="loginModal"
+            handleCancel={() => setVisible(false)}
+            handleOk={() => setVisible(false)}
+            width="400px"
+        >
+            <div>登录form</div>
+        </UModal>
     );
 };
-export default Layout;
+const Layout = (props: LayoutProps) => {
+    const [visible, setVisible] = useState(false);
+    return (
+        <Scrollbars style={{ width: '100vw', height: '100vh' }}>
+            <LayoutContext.Provider value={{ visible, setVisible, ...props }}>
+                <div className={styleModule.layout}>
+                    <Header />
+                    <Outlet />
+                    <Footer />
+                    <Tool />
+                    <LoginModal />
+                </div>
+            </LayoutContext.Provider>
+        </Scrollbars>
+    );
+};
+const mapStateToProps = (state: any, ownProps: any) => {
+    return { ...ownProps, userInfo: state.user };
+};
+const mapDispatchToProps = (dispatch: any) => ({
+    resetUserInfo: (userInfo: any) => dispatch(resetUserInfo(userInfo)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

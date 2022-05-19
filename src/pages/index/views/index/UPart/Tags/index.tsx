@@ -81,7 +81,7 @@ const HotTags = () => {
         <div className={styleModule.uc}>
             {tags.map((item) => {
                 return (
-                    <div className={styleModule.warper}>
+                    <div key={item._id} className={styleModule.warper}>
                         <div className={styleModule.uItem}>{item.label}</div>
                     </div>
                 );
@@ -106,7 +106,7 @@ const Author = () => {
         <div className={styleModule.ucAuthor}>
             {userList.map((item) => {
                 return (
-                    <div className={styleModule.auItem}>
+                    <div key={item._id} className={styleModule.auItem}>
                         <div className={styleModule.icon}></div>
                         <div className={styleModule.auContent}>
                             <div className={styleModule.row01}>{item.username}</div>
