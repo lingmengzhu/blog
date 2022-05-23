@@ -5,97 +5,49 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser, addUser } from '@/api/user';
 import { setUserInfo } from '@/actions/user';
-import './index.less';
+import styleModule from './index.module.less';
 
 const Index = (props: any) => {
-    const { setUserInfo, token } = props;
-    const navigate = useNavigate();
-    const [user, setUser] = useState({} as any);
-    const [visible, setVisible] = useState(false);
-    const onFinish = (values: any) => {
-        console.log('Success:', values);
-        const { password, username } = values;
-        if (password.trim() === '' || username.trim() === '') {
-            alert('请正常输入 不然我一刀');
-            return;
-        }
-        loginUser({ password: password.trim(), username: username.trim() })
-            .then((res: any) => {
-                // 用户ID
-                const { token, id } = res.data;
-                if (!token) {
-                    if (!id) {
-                        setUser({ password: password.trim(), username: username.trim() });
-                        setVisible(true);
-                    } else {
-                        message.error(res.msg);
-                    }
-                } else {
-                    setUserInfo({ userId: id, username: username.trim(), token });
-                }
-            })
-            .catch(() => {
-                message.error('服务器错误');
-            });
-    };
-    const createUser = useCallback(() => {
-        addUser(user)
-            .then((res) => {
-                setVisible(false);
-                // 用户ID
-                const { token, id } = res.data;
-                setUserInfo({ userId: id, username: user.username, token: token });
-            })
-            .catch(() => {
-                message.error('服务器错误');
-            });
-    }, [user]);
-
-    const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
-        alert('你输入的内容不合法');
-    };
-    // 登录后成功获取token
-    if (token) {
-        navigate('/', { replace: true });
-    }
     return (
-        <div className="page-login">
-            <div className="layout">
-                <div className="content">
-                    <Form
-                        name="basic"
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                    >
-                        <div className="title">欢迎大家登录博客平台</div>
-                        <Form.Item
-                            label="用户名"
-                            name="username"
-                            rules={[{ required: true, message: '请输入用户名!' }]}
-                        >
-                            <Input />
-                        </Form.Item>
-
-                        <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码!' }]}>
-                            <Input.Password />
-                        </Form.Item>
-
-                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            <Button type="primary" htmlType="submit">
-                                登录/注册
-                            </Button>
-                        </Form.Item>
-                    </Form>
+        <div className={styleModule.pageLogin}>
+            <div className={styleModule.loginBox}>
+                <div className={styleModule.qrChange}></div>
+                <div className={styleModule.loginImage}></div>
+                <div className={styleModule.loginForm}>
+                    <div className={styleModule.loginMode}>
+                        <div className={styleModule.item}>账号登录</div>
+                        <div className={styleModule.item}>验证码登录</div>
+                    </div>
+                    <div className={styleModule.userName}>
+                        <Input placeholder="请输入用户名"></Input>
+                    </div>
+                    <div className={styleModule.password}>
+                        <Input placeholder="请输入密码"></Input>
+                    </div>
+                    <div className={styleModule.hint}>
+                        <span>
+                            还没有账号？<a>立即注册</a>
+                        </span>
+                        <span>
+                            <a>忘记密码</a>
+                        </span>
+                    </div>
+                    <div className={styleModule.confirm}>
+                        <Button type="primary" block>
+                            登录
+                        </Button>
+                    </div>
+                    <div className={styleModule.extra}>社交账号登录</div>
+                    <div className={styleModule.extraIcon}>
+                        <div className={styleModule.weixin}></div>
+                        <div className={styleModule.qq}></div>
+                        <div className={styleModule.github}></div>
+                    </div>
+                    <div className={styleModule.protocol}>
+                        使用社交账号可以作为已创建的博客账户，并同意<a>用户协议</a>。
+                    </div>
                 </div>
             </div>
-            <Modal title="用户注册" visible={visible} onOk={createUser} onCancel={() => setVisible(false)}>
-                <p>没有查询到该用户，是否立即注册?</p>
-            </Modal>
         </div>
     );
 };

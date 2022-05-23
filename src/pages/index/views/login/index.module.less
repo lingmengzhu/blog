@@ -1,0 +1,109 @@
+.pageLogin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 170px);
+    .loginBox {
+        width: 800px;
+        height: 480px;
+        position: relative;
+        display: flex;
+        background: #fff;
+        box-shadow: 1px 1px 5px rgb(0 0 0 / 10%);
+        .qrChange {
+            position: absolute;
+            height: 36px;
+            width: 36px;
+            right: 0px;
+            top: 0px;
+            cursor: pointer;
+        }
+        .loginImage {
+            width: 400px;
+            height: 100%;
+            background-image: url('~@/assets/images/01.png');
+            background-size: cover;
+            background-position: -200px -0;
+        }
+        .loginForm {
+            width: 400px;
+            height: 100%;
+            padding: 50px;
+            font-size: 14px;
+            .loginMode {
+                margin-bottom: 32px;
+                display: flex;
+                .item {
+                    &:first-child {
+                        border-right: 1px solid #eee;
+                        font-weight: bold;
+                        color: #333;
+                    }
+                    text-align: center;
+                    width: 150px;
+                    height: 28px;
+                    color: #999;
+                    font-size: 20px;
+                }
+            }
+            .userName {
+                margin-bottom: 20px;
+            }
+            .password {
+                margin-bottom: 20px;
+            }
+            .hint {
+                margin-bottom: 20px;
+                display: flex;
+                justify-content: space-between;
+            }
+            .confirm {
+                margin-bottom: 20px;
+            }
+            .extra {
+                position: relative;
+                text-align: center;
+                &::before,
+                &::after {
+                    position: absolute;
+                    height: 1px;
+                    width: calc(20%);
+                    background: #eee;
+                    left: 10%;
+                    top: 50%;
+                    content: '';
+                }
+                &::after {
+                    left: auto;
+                    right: 10%;
+                }
+            }
+            .extraIcon {
+                margin-bottom: 20px;
+                margin-top: 10px;
+                display: flex;
+                justify-content: center;
+                div {
+                    background-size: 100% 100%;
+                    background-repeat: no-repeat;
+                    width: 36px;
+                    height: 36px;
+                    margin: 0 6px;
+                }
+                .weixin {
+                    background-image: url('~@/assets/images/weixin.png');
+                }
+                .qq {
+                    background-image: url('~@/assets/images/qq.png');
+                }
+                .github {
+                    background-image: url('~@/assets/images/github.png');
+                }
+            }
+            .protocol {
+                color: #999;
+                font-size: 12px;
+            }
+        }
+    }
+}
