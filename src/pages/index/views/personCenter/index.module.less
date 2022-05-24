@@ -1,0 +1,97 @@
+.pageContent {
+    display: flex;
+    justify-content: center;
+    .content {
+        display: grid;
+        grid-template-columns: 700px 300px;
+        grid-column-gap: 16px;
+        min-height: 200px;
+        .cardLeft {
+            height: auto;
+
+            .pcHeader {
+                height: 120px;
+                padding: 20px;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                .icon {
+                }
+                .info {
+                    margin-left: 10px;
+                    flex: 1;
+                    .name {
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                    .indicator {
+                        display: flex;
+                        div {
+                            &:last-child {
+                                margin-right: 0px;
+                            }
+                            margin-right: 10px;
+                            height: 40px;
+                            line-height: 40px;
+                            font-size: 14px;
+                            color: #999;
+                        }
+                    }
+                }
+                .notice {
+                }
+            }
+            .pcTabs {
+                border-top: 1px solid #f0f0f0;
+                padding: 0 20px;
+                border-bottom: 1px solid #f0f0f0;
+                height: 50px;
+                background: #fff;
+                display: flex;
+                justify-content: center;
+                .tabsItem {
+                    &:last-child {
+                        margin-right: 0px;
+                    }
+                    margin-right: 30px;
+                    height: 48px;
+                    line-height: 48px;
+                    font-size: 14px;
+                    color: #666;
+                    cursor: pointer;
+                }
+                .active {
+                    border-bottom: 1px solid #428bca;
+                    color: #428bca;
+                }
+            }
+            .pcContent {
+                padding: 20px;
+                background: #fff;
+                min-height: 120px;
+            }
+        }
+        .cardRight {
+            .sideTags {
+                min-height: 300px;
+                height: auto;
+                background: #fff;
+                margin-bottom: 16px;
+                border-radius: 5px;
+            }
+            .sideGroup {
+                min-height: 400px;
+                height: auto;
+                background: #fff;
+                margin-bottom: 16px;
+                border-radius: 5px;
+            }
+            .sideFriendship {
+                min-height: 150px;
+                height: auto;
+                background: #fff;
+                border-radius: 5px;
+            }
+        }
+    }
+}

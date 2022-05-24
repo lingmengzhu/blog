@@ -87,27 +87,27 @@ const Header = () => {
                     草稿
                 </div>
                 <div className={styleModule.divider}></div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/data')}>
                     <UIcon iconClass="home" style={menuIconStyle} />
                     我的主页
                 </div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/article')}>
                     <UIcon iconClass="article" style={menuIconStyle} />
                     我的文章
                 </div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/comment')}>
                     <UIcon iconClass="notice" style={menuIconStyle} />
                     我的评论
                 </div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/reply')}>
                     <UIcon iconClass="reply" style={menuIconStyle} />
                     我的回复
                 </div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/topic')}>
                     <UIcon iconClass="topic" style={menuIconStyle} />
                     我的话题
                 </div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/person_center/collection')}>
                     <UIcon iconClass="collect" style={menuIconStyle} />
                     我的收藏
                 </div>
