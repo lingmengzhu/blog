@@ -5,13 +5,16 @@ import { Button, message, Input } from 'antd';
 import BraftEditor, { ControlType } from 'braft-editor';
 import { useParams } from 'react-router-dom';
 import { getArticle } from '@/api/article';
+import UIcon from '@/component/UIcon';
 // 引入编辑器样式
 import 'braft-editor/dist/index.css';
 import styleModule from './index.module.less';
 import Tags from '../index/UPart/Tags';
 
+const { TextArea } = Input;
 const Index = () => {
     console.log('Index');
+    const iconStyle = { height: '48px', width: '48px', fill: '#777' };
     let { id } = useParams();
     const [editorState, setEditorState] = useState(BraftEditor.createEditorState(null));
     useEffect(() => {
@@ -36,6 +39,35 @@ const Index = () => {
                                     className="preview braft-output-content"
                                     dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
                                 />
+                            </div>
+                            <div className={styleModule.addComments}>
+                                <div className={styleModule.acHeader}>发布评论</div>
+                                <div className={styleModule.acContent}>
+                                    <div className={styleModule.acForm}>
+                                        <div className={styleModule.acLabel}>
+                                            <UIcon iconClass="weixin" style={iconStyle} />
+                                        </div>
+                                        <div className={styleModule.acWidget}>
+                                            <TextArea rows={4} placeholder="想说点什么呢？" maxLength={6} />
+                                        </div>
+                                    </div>
+                                    <div className={styleModule.acSubmit}>
+                                        <Button type="primary">发布评论</Button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styleModule.commentSection}>
+                                {[].length > 0 ? null : (
+                                    <div className={styleModule.csEmpty}>
+                                        <div>
+                                            <UIcon
+                                                iconClass="commitEmpty"
+                                                style={{ height: '120px', width: '120px', fill: '#777' }}
+                                            />
+                                        </div>
+                                        <div className={styleModule.csText}>目前还没有任何评论，快来抢沙发吧</div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
