@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 const R = axios.create({
     baseURL: '/',
@@ -8,7 +9,6 @@ R.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
         config.headers.Authorization = 'Bearer ' + token;
-
         return config;
     },
     (err) => {
@@ -19,7 +19,13 @@ R.interceptors.request.use(
 
 R.interceptors.response.use(
     (res) => {
-        return res.data;
+        console.log(res.data);
+        // 请求异常
+        if (res.data && res.data.code === 500) {
+            message.error(res.data.msg || '服务器错误')
+            return Promise.reject(res.data);
+        }
+        return Promise.resolve(res.data);
     },
     (err) => {
         return Promise.reject(err);

@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Input } from 'antd';
+import { Input, Popover } from 'antd';
+import classNames from 'classnames';
 import { Scrollbars } from 'rc-scrollbars';
 import { useNavigate } from 'react-router-dom';
-import { ArrowUpOutlined, FormOutlined } from '@ant-design/icons';
+import { ArrowUpOutlined, FormOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 // 登出
@@ -12,6 +13,7 @@ import styleModule from './index.module.less';
 
 const { Search } = Input;
 const iconStyle = { height: '24px', width: '24px', fill: '#777' };
+const menuIconStyle = { height: '16px', width: '16px', fill: '#777' };
 interface LayoutProps {
     userInfo?: any;
     resetUserInfo?: Function;
@@ -60,13 +62,62 @@ const Tool = () => {
 };
 const Header = () => {
     const { userInfo, resetUserInfo } = useContext<LayoutContextProps>(LayoutContext);
-    const { token } = userInfo;
+    const { token, username } = userInfo;
+    const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
     const login = () => {
         navigate('/login');
     };
     const logout = () => {
         resetUserInfo();
+    };
+    const MenuDropdown = () => {
+        return (
+            <div className={styleModule.menuDrop}>
+                <div className={styleModule.item} onClick={() => navigate('/add')}>
+                    <UIcon iconClass="addArticle" style={menuIconStyle} />
+                    写文章
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="draft" style={menuIconStyle} />
+                    草稿
+                </div>
+                <div className={styleModule.divider}></div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="home" style={menuIconStyle} />
+                    我的主页
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="article" style={menuIconStyle} />
+                    我的文章
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="notice" style={menuIconStyle} />
+                    我的评论
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="reply" style={menuIconStyle} />
+                    我的回复
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="topic" style={menuIconStyle} />
+                    我的话题
+                </div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="collect" style={menuIconStyle} />
+                    我的收藏
+                </div>
+                <div className={styleModule.divider}></div>
+                <div className={styleModule.item}>
+                    <UIcon iconClass="setting" style={menuIconStyle} />
+                    设置
+                </div>
+                <div className={styleModule.item} onClick={() => logout()}>
+                    <UIcon iconClass="exit" style={menuIconStyle} />
+                    退出
+                </div>
+            </div>
+        );
     };
     return (
         <div className={styleModule.pageHeader}>
@@ -86,12 +137,36 @@ const Header = () => {
                 </div>
                 {token ? (
                     <div className={styleModule.person}>
-                        <div className={styleModule.weixin}>
-                            <UIcon iconClass="weixin" style={iconStyle} />
+                        <div className={styleModule.notice}>
+                            <UIcon iconClass="notice" style={iconStyle} />
                         </div>
-                        <div className={styleModule.login} onClick={() => logout()}>
+                        <div className={styleModule.comments}>
+                            <UIcon iconClass="comments" style={iconStyle} />
+                        </div>
+
+                        <Popover
+                            overlayInnerStyle={{ padding: 0 }}
+                            overlayClassName={styleModule.customDropdown}
+                            content={<MenuDropdown />}
+                            trigger="click"
+                            placement="bottom"
+                            visible={visible}
+                        >
+                            <div
+                                className={classNames(styleModule.ua, visible && styleModule.active)}
+                                onClick={() => setVisible(!visible)}
+                            >
+                                <div className={styleModule.preIcon}>
+                                    <UIcon iconClass="weixin" style={iconStyle} />
+                                    <div className={styleModule.name}>{username}</div>
+                                </div>
+                                <div className={styleModule.subIcon}>{visible ? <UpOutlined /> : <DownOutlined />}</div>
+                            </div>
+                        </Popover>
+
+                        {/* <div className={styleModule.login} onClick={() => logout()}>
                             登出
-                        </div>
+                        </div> */}
                     </div>
                 ) : (
                     <div className={styleModule.person}>
@@ -128,6 +203,7 @@ const Layout = (props: LayoutProps) => {
     );
 };
 const mapStateToProps = (state: any, ownProps: any) => {
+    console.log('state', state);
     return { ...ownProps, userInfo: state.user };
 };
 

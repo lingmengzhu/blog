@@ -21,7 +21,6 @@ const RouterView = (props: any) => {
                         );
                     })}
                 </Route>
-                {/* <Route path="/login" element={<Login />} /> */}
             </Routes>
         </Suspense>
     );

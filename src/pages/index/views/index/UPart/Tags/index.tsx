@@ -4,6 +4,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styleModule from './index.module.less';
 import { listAllArticle } from '@/api/article';
+import { useNavigate } from 'react-router-dom';
 import { listTags } from '@/api/tags';
 import { listUser } from '@/api/user';
 import moment from 'moment';
@@ -14,6 +15,7 @@ export interface Props {
     type: String;
 }
 const Article = () => {
+    const navigate = useNavigate();
     const [article, setArticle] = useState([]);
     const [pagination, setPagination] = useState({ current: 1, pageSize: 10, total: 0 });
     const { current, pageSize, total } = pagination;
@@ -36,7 +38,13 @@ const Article = () => {
             <div className={styleModule.articleList}>
                 {article.map((item) => {
                     return (
-                        <div key={item.articleId} className={styleModule.articleItem}>
+                        <div
+                            key={item.articleId}
+                            className={styleModule.articleItem}
+                            onClick={() => {
+                                navigate(`/article/${item.articleId}`);
+                            }}
+                        >
                             <div className={styleModule.title}>{item.title}</div>
                             <div className={styleModule.text} dangerouslySetInnerHTML={{ __html: item.content }}></div>
                             <div className={styleModule.mark}>

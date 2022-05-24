@@ -9,6 +9,7 @@ const user = (state: any = initialState, action: any) => {
         case 'User_Login':
             // 登录操作
             localStorage.setItem('token', action.userInfo.token);
+            console.log('action', action);
             return {
                 ...state,
                 ...action.userInfo,

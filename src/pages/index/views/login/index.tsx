@@ -1,13 +1,30 @@
 /* eslint-disable react/no-danger */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Form, Input, Button, Checkbox, message, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginUser, addUser } from '@/api/user';
+import { loginUser } from '@/api/user';
 import { setUserInfo } from '@/actions/user';
 import styleModule from './index.module.less';
 
 const Index = (props: any) => {
+    const { setUserInfo, token } = props;
+    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const submit = () => {
+        loginUser({ password: password.trim(), username: username.trim() })
+            .then((res: any) => {
+                const { token, id } = res.data;
+                setUserInfo({ userId: id, username: username.trim(), token });
+            })
+            .catch(() => {});
+    };
+    useEffect(() => {
+        if (token) {
+            navigate('/');
+        }
+    }, [token]);
     return (
         <div className={styleModule.pageLogin}>
             <div className={styleModule.loginBox}>
@@ -19,21 +36,29 @@ const Index = (props: any) => {
                         <div className={styleModule.item}>验证码登录</div>
                     </div>
                     <div className={styleModule.userName}>
-                        <Input placeholder="请输入用户名"></Input>
+                        <Input
+                            value={username}
+                            placeholder="请输入用户名"
+                            onChange={(e) => setUsername(e.target.value)}
+                        ></Input>
                     </div>
                     <div className={styleModule.password}>
-                        <Input placeholder="请输入密码"></Input>
+                        <Input
+                            value={password}
+                            placeholder="请输入密码"
+                            onChange={(e) => setPassword(e.target.value)}
+                        ></Input>
                     </div>
                     <div className={styleModule.hint}>
                         <span>
-                            还没有账号？<a>立即注册</a>
+                            还没有账号？<a onClick={() => navigate('/register')}>立即注册</a>
                         </span>
                         <span>
                             <a>忘记密码</a>
                         </span>
                     </div>
                     <div className={styleModule.confirm}>
-                        <Button type="primary" block>
+                        <Button type="primary" block onClick={() => submit()}>
                             登录
                         </Button>
                     </div>

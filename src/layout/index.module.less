@@ -34,16 +34,38 @@
             .person {
                 display: flex;
                 align-items: center;
-                div {
-                    height: auto;
-                    margin-left: 16px;
+                user-select: none;
+                & > div {
+                    height: 50px;
+                    padding: 0 6px;
                     display: flex;
                     align-items: center;
-                }
-                .login{
                     cursor: pointer;
                     &:hover {
-                        color: #00c3d9;
+                        background-color: #f4f4f4;
+                    }
+                }
+                .active {
+                    background-color: #f4f4f4;
+                }
+                .ua {
+                    display: flex;
+                    height: 50px;
+                    align-items: center;
+                    padding: 0 6px;
+                    font-size: 14px;
+                    min-width: 150px;
+                    justify-content: space-between;
+                    .preIcon,
+                    .subIcon {
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .preIcon {
+                        .name {
+                            margin-left: 10px;
+                        }
                     }
                 }
             }
@@ -87,6 +109,38 @@
         }
         &:hover {
             color: #00c3d9;
+        }
+    }
+}
+.menuDrop {
+    min-width: 150px;
+    .item {
+        height: 36px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        cursor: pointer;
+        &:hover {
+            background-color: #f4f4f4;
+        }
+        svg{
+            margin-right: 8px;
+        }
+    }
+    .divider {
+        height: 1px;
+        margin: 10px 0;
+        background-color: #e5e5e5;
+    }
+}
+.customDropdown {
+    padding-top: 0px !important;
+    :global {
+        .ant-popover-arrow {
+            display: none;
+        }
+        .ant-popover-inner-content {
+            padding: 6px 0;
         }
     }
 }
