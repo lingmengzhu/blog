@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Input, Popover } from 'antd';
 import classNames from 'classnames';
 import { Scrollbars } from 'rc-scrollbars';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowUpOutlined, FormOutlined, DownOutlined, UpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -65,6 +65,10 @@ const Header = () => {
     const { token, username } = userInfo;
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    useEffect(() => {
+        setVisible(false);
+    }, [location.pathname]);
     const login = () => {
         navigate('/login');
     };
@@ -189,6 +193,7 @@ const Header = () => {
     );
 };
 const Layout = (props: LayoutProps) => {
+    console.log('props', props);
     return (
         <Scrollbars style={{ width: '100vw', height: '100vh' }}>
             <LayoutContext.Provider value={{ ...props }}>

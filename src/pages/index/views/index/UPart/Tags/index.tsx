@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, Pagination } from 'antd';
+import { Carousel, Pagination, Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styleModule from './index.module.less';
@@ -7,12 +7,15 @@ import { listAllArticle } from '@/api/article';
 import { useNavigate } from 'react-router-dom';
 import { listTags } from '@/api/tags';
 import { listUser } from '@/api/user';
+import UIcon from '@/component/UIcon';
 import moment from 'moment';
 
+const iconStyle = { height: '48px', width: '48px', fill: '#777' };
 export interface Props {
     url: String;
     title: String;
     type: String;
+    more?: Boolean;
 }
 const Article = () => {
     const navigate = useNavigate();
@@ -213,13 +216,53 @@ const Link = () => {
         </div>
     );
 };
+const Writer = () => {
+    return (
+        <div className={styleModule.ucWriter}>
+            <div className={styleModule.person}>
+                <div className={styleModule.icon}>
+                    <UIcon iconClass="weixin" style={iconStyle} />
+                </div>
+                <div className={styleModule.section}>
+                    <div className={styleModule.name}>空心人</div>
+                    <div className={styleModule.signature}>我是空心人</div>
+                </div>
+            </div>
+            <div className={styleModule.output}>
+                <div className={styleModule.item}>
+                    <div className={styleModule.count}>0</div>
+                    <div className={styleModule.type}>文章</div>
+                </div>
+                <div className={styleModule.item}>
+                    <div className={styleModule.count}>0</div>
+                    <div className={styleModule.type}>评论</div>
+                </div>
+                <div className={styleModule.item}>
+                    <div className={styleModule.count}>0</div>
+                    <div className={styleModule.type}>人气</div>
+                </div>
+            </div>
+            <div className={styleModule.operate}>
+                <div className={styleModule.focus}>
+                    <Button type="primary">关注</Button>
+                </div>
+                <div className={styleModule.letter}>
+                    <Button type="primary">私信</Button>
+                </div>
+            </div>
+        </div>
+    );
+};
 const Tags: React.FC<Props> = (props: Props) => {
-    const { url, title, type } = props;
+    const { url, title, type, more = true } = props;
 
     let UC = <HotTags />;
     switch (type) {
         case 'author':
             UC = <Author />;
+            break;
+        case 'writer':
+            UC = <Writer />;
             break;
         case 'link':
             UC = <Link />;
@@ -237,7 +280,7 @@ const Tags: React.FC<Props> = (props: Props) => {
         <div className={classNames('uPart', styleModule.tags)}>
             <div className={styleModule.uh}>
                 <div className={styleModule.ut}>{title}</div>
-                <div className={styleModule.uo}>更多</div>
+                {more && <div className={styleModule.uo}>更多</div>}
             </div>
             {UC}
         </div>

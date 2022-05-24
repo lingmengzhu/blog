@@ -26,7 +26,12 @@ const Index = () => {
                 <div className={styleModule.cardLeft}>
                     <div className={styleModule.pageShow}>
                         <div className={styleModule.layout}>
-                            <div className={styleModule.content}>
+                            <div className={styleModule.breadCrumb}>
+                                <span>文章教程</span>
+                                <span>{' > '}</span>
+                                <span>文章详情</span>
+                            </div>
+                            <div className={styleModule.braftContent}>
                                 <div
                                     className="preview braft-output-content"
                                     dangerouslySetInnerHTML={{ __html: editorState.toHTML() }}
@@ -37,6 +42,9 @@ const Index = () => {
                 </div>
 
                 <div className={styleModule.cardRight}>
+                    <div className={styleModule.sideTags}>
+                        <Tags url="" title="关于作者" type="writer" more={false}></Tags>
+                    </div>
                     <div className={styleModule.sideTags}>
                         <Tags url="" title="热门标签" type="tags"></Tags>
                     </div>
