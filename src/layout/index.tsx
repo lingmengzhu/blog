@@ -112,7 +112,7 @@ const Header = () => {
                     我的收藏
                 </div>
                 <div className={styleModule.divider}></div>
-                <div className={styleModule.item}>
+                <div className={styleModule.item} onClick={() => navigate('/setting')}>
                     <UIcon iconClass="setting" style={menuIconStyle} />
                     设置
                 </div>

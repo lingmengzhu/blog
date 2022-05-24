@@ -69,6 +69,7 @@
   "dependencies": {
     "ahooks": "^3.3.12",
     "antd": "^4.17.2",
+    "antd-img-crop": "^4.2.3",
     "axios": "^0.24.0",
     "braft-editor": "^2.3.9",
     "core-js": "3.18.2",

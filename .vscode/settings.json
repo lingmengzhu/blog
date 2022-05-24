@@ -3,6 +3,7 @@
     "prettier.tabWidth": 4,
     "prettier.printWidth": 120,
     "cSpell.words": [
+        "antd",
         "Braft"
     ] // 超过最大值换行
     /*  prettier的配置 

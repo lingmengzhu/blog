@@ -7,11 +7,13 @@ import Search from '../views/search';
 import Login from '../views/login';
 import Register from '../views/register';
 import PersonCenter from '../views/personCenter';
+import Setting from '../views/setting';
 
 export default [
     { path: '/', name: 'App', component: Index, auth: false },
     { path: '/list', name: 'List', component: List, auth: true },
     { path: '/person_center/:activeKey', name: 'PersonCenter', component: PersonCenter, auth: true },
+    { path: '/setting', name: 'Setting', component: Setting, auth: true },
     { path: '/add', name: 'Add', component: Add, auth: true },
     { path: '/edit/:id', name: 'Edit', component: Edit, auth: true },
     { path: '/article/:id', name: 'Article', component: Article, auth: true },
