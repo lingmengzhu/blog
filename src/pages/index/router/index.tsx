@@ -16,7 +16,7 @@ const RouterView = (props: any) => {
                             <Route
                                 key={index}
                                 path={item.path}
-                                element={token || !item.auth ? <item.component /> : <Navigate to="/" />}
+                                element={token || !item.auth ? <item.component /> : <Navigate to="/login" />}
                             ></Route>
                         );
                     })}

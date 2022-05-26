@@ -1,19 +1,21 @@
 /* eslint-disable react/no-danger */
-import React, { useState } from 'react';
-import { Upload, Input, Button, Radio } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Upload, Input, Button, Radio, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import ImgCrop from 'antd-img-crop';
+import qs from 'query-string';
 import { setUserInfo } from '@/actions/user';
+import { getUser, updateUser } from '@/api/user';
 import styleModule from './index.module.less';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 
 const { TextArea } = Input;
 interface FormData {
+    _id?: string;
     username: string;
     nickname: string;
-    fileList: UploadFile[];
     sex: 1 | 2 | 3;
     email: string;
     phone: string;
@@ -21,34 +23,64 @@ interface FormData {
     age: string;
     createTime: string | number;
     address: string;
+    profilePhoto: string;
 }
 
 const Index = (props: any) => {
-    const { setUserInfo, token } = props;
+    const { user } = props;
+    const { userId, token } = user;
     const navigate = useNavigate();
 
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
     const initData: FormData = {
-        username: 'Hchen',
-        nickname: 'Hchen',
-        fileList: [
-            {
-                uid: '-1',
-                name: 'image.png',
-                status: 'done',
-                url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-        ],
-        sex: 1,
-        email: '2287843583@qq.com',
-        phone: '15779214557',
-        age: '18',
-        createTime: '1653293540320',
+        username: '',
+        nickname: '',
+        sex: 3,
+        email: '',
+        phone: '',
+        age: '',
+        createTime: '',
         introduction: '',
         address: '',
+        profilePhoto: '',
     };
     const [formData, setFormData] = useState(initData);
+
+    useEffect(() => {
+        getUser(userId)
+            .then((res) => {
+                setFormData({ ...formData, ...res.data });
+                if (res.data.profilePhoto) {
+                    const arr = res.data.profilePhoto.split('/');
+                    setFileList([
+                        {
+                            uid: '',
+                            name: arr[arr.length - 1],
+                            percent: 100,
+                            status: 'success',
+                            thumbUrl: res.data.profilePhoto + '?' + qs.stringify({ token }),
+                            url: res.data.profilePhoto + '?' + qs.stringify({ token }),
+                        },
+                    ]);
+                }
+            })
+            .catch(() => {});
+    }, []);
+
     const onFileChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-        setFormData({ ...formData, fileList: newFileList });
+        setFileList(newFileList);
+        let profilePhoto = '';
+        if (newFileList.length > 0) {
+            const file = newFileList[0];
+            if (newFileList[0].status === 'done') {
+                profilePhoto = file.response.data.url;
+            } else {
+                profilePhoto = '';
+            }
+        } else {
+            profilePhoto = '';
+        }
+        setFormData({ ...formData, profilePhoto });
     };
     const onPreview = async (file: UploadFile) => {
         let src = file.url as string;
@@ -66,6 +98,13 @@ const Index = (props: any) => {
     };
     const onChange = (key: string, value: any) => {
         setFormData({ ...formData, [key]: value });
+    };
+    const submit = () => {
+        updateUser(formData)
+            .then((res: any) => {
+                message.success('保存成功');
+            })
+            .catch(() => {});
     };
     return (
         <div className={styleModule.pageSetting}>
@@ -88,15 +127,16 @@ const Index = (props: any) => {
                     <div className={styleModule.formItem}>
                         <div className={styleModule.label}>头像</div>
                         <div className={styleModule.widget}>
-                            <ImgCrop rotate>
+                            <ImgCrop rotate shape="round">
                                 <Upload
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    action="/api/upload"
                                     listType="picture-card"
-                                    fileList={formData.fileList}
+                                    fileList={fileList}
                                     onChange={onFileChange}
                                     onPreview={onPreview}
+                                    headers={{ Authorization: `Bearer ${token}` }}
                                 >
-                                    {formData.fileList.length < 5 && '+ Upload'}
+                                    {fileList.length < 1 && '+ Upload'}
                                 </Upload>
                             </ImgCrop>
                         </div>
@@ -146,7 +186,9 @@ const Index = (props: any) => {
                     </div>
                     <div className={styleModule.formItem}>
                         <div className={styleModule.label}>注册时间</div>
-                        <div className={styleModule.widget}>{moment(formData.createTime).format()}</div>
+                        <div className={styleModule.widget}>
+                            {moment(formData.createTime).format('YYYY-MM-DD HH:mm:ss')}
+                        </div>
                     </div>
                     <div className={styleModule.formItem}>
                         <div className={styleModule.label}>年龄</div>
@@ -156,7 +198,9 @@ const Index = (props: any) => {
                     </div>
                 </div>
                 <div className={styleModule.operate}>
-                    <Button type="primary">保存</Button>
+                    <Button type="primary" onClick={() => submit()}>
+                        保存
+                    </Button>
                 </div>
             </div>
         </div>
@@ -164,10 +208,7 @@ const Index = (props: any) => {
 };
 
 const mapStateToProps = (state: any, ownProps: any) => {
-    return { ...ownProps, token: state.user.token };
+    return { ...ownProps, user: state.user };
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-    setUserInfo: (userInfo: any) => dispatch(setUserInfo(userInfo)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect(mapStateToProps)(Index);

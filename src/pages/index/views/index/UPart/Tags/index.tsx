@@ -3,7 +3,7 @@ import { Carousel, Pagination, Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styleModule from './index.module.less';
-import { listAllArticle } from '@/api/article';
+import { listArticle } from '@/api/article';
 import { useNavigate } from 'react-router-dom';
 import { listTags } from '@/api/tags';
 import { listUser } from '@/api/user';
@@ -24,7 +24,7 @@ const Article = () => {
     const { current, pageSize, total } = pagination;
     // 获取文章
     const getArticle = () => {
-        listAllArticle({ current, pageSize }).then((res: any) => {
+        listArticle({ current, pageSize }).then((res: any) => {
             setArticle(res.data);
             setPagination({ ...pagination, total: res.total });
         });

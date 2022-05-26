@@ -10,7 +10,7 @@ import PersonCenter from '../views/personCenter';
 import Setting from '../views/setting';
 
 export default [
-    { path: '/', name: 'App', component: Index, auth: false },
+    { path: '/', name: 'App', component: Index, auth: true },
     { path: '/list', name: 'List', component: List, auth: true },
     { path: '/person_center/:activeKey', name: 'PersonCenter', component: PersonCenter, auth: true },
     { path: '/setting', name: 'Setting', component: Setting, auth: true },
