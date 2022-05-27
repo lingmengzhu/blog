@@ -6,7 +6,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import ImgCrop from 'antd-img-crop';
 import qs from 'query-string';
-import { setUserInfo } from '@/actions/user';
+import { urlWithToken } from '@/utils/index';
 import { getUser, updateUser } from '@/api/user';
 import styleModule from './index.module.less';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
@@ -50,16 +50,17 @@ const Index = (props: any) => {
         getUser(userId)
             .then((res) => {
                 setFormData({ ...formData, ...res.data });
-                if (res.data.profilePhoto) {
-                    const arr = res.data.profilePhoto.split('/');
+                const { profilePhoto } = res.data;
+                if (profilePhoto) {
+                    const arr = profilePhoto.split('/');
                     setFileList([
                         {
                             uid: '',
                             name: arr[arr.length - 1],
                             percent: 100,
                             status: 'success',
-                            thumbUrl: res.data.profilePhoto + '?' + qs.stringify({ token }),
-                            url: res.data.profilePhoto + '?' + qs.stringify({ token }),
+                            thumbUrl: urlWithToken(profilePhoto, token),
+                            url: urlWithToken(profilePhoto, token),
                         },
                     ]);
                 }

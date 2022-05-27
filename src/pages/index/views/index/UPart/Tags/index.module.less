@@ -76,10 +76,14 @@
                 height: 48px;
                 overflow: hidden;
                 border-radius: 100%;
-                background-image: url('~@/assets/images/10000.png');
-                background-size: 100% 100%;
-                background-repeat: no-repeat;
+                // background-image: url('~@/assets/images/10000.png');
+                // background-size: 100% 100%;
+                // background-repeat: no-repeat;
                 cursor: pointer;
+                img {
+                    width: 48px;
+                    height: 48px;
+                }
             }
             .auContent {
                 padding: 0 8px;
@@ -125,13 +129,13 @@
                 align-items: center;
                 justify-content: center;
                 opacity: 0.5;
+                cursor: pointer;
             }
             .itemInstance {
                 width: 100px;
                 height: 100px;
                 overflow: hidden;
                 border-radius: 100%;
-                background-image: url('~@/assets/images/10000.png');
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 cursor: pointer;
@@ -146,15 +150,18 @@
                 align-items: center;
                 justify-content: center;
                 opacity: 0.5;
+                cursor: pointer;
             }
         }
         .carousel01 {
+            .itemInstance {
+                background-image: url('~@/assets/images/qq.png');
+            }
         }
         .carousel02 {
-        }
-        .carousel03 {
-        }
-        .carousel04 {
+            .itemInstance {
+                background-image: url('~@/assets/images/weixin.png');
+            }
         }
     }
     .ucArticle {
@@ -217,6 +224,11 @@
             .icon {
                 width: 48px;
                 height: 48px;
+                img {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                }
             }
             .section {
                 margin-left: 10px;
@@ -246,16 +258,15 @@
                 }
             }
         }
-        .operate{
+        .operate {
             display: flex;
             align-items: center;
             justify-content: center;
             height: 80px;
-            .focus{
+            .focus {
                 margin-right: 20px;
             }
-            .letter{
-
+            .letter {
             }
         }
     }

@@ -17,8 +17,10 @@ const Index = () => {
     const iconStyle = { height: '48px', width: '48px', fill: '#777' };
     let { id } = useParams();
     const [editorState, setEditorState] = useState(BraftEditor.createEditorState(null));
+    const [article, setArticle] = useState<any>({});
     useEffect(() => {
         getArticle(id).then((res) => {
+            setArticle(res.data);
             setEditorState(BraftEditor.createEditorState(res.data.content));
         });
     }, []);
@@ -75,7 +77,7 @@ const Index = () => {
 
                 <div className={styleModule.cardRight}>
                     <div className={styleModule.sideTags}>
-                        <Tags url="" title="关于作者" type="writer" more={false}></Tags>
+                        <Tags url="" title="关于作者" type="writer" more={false} user={article.user || {}}></Tags>
                     </div>
                     <div className={styleModule.sideTags}>
                         <Tags url="" title="热门标签" type="tags"></Tags>

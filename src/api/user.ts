@@ -7,4 +7,5 @@ const updateUser = (data: any) => R.put(`/api/user`, data);
 const listUser = (query: any) => {
     return R.get(`/api/user/list?${qs.stringify(query)}`);
 };
+
 export { loginUser, addUser, listUser, getUser, updateUser };

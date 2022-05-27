@@ -2,6 +2,17 @@ const initialState: any = {
     userId: null,
     username: null,
     token: null,
+    address: null,
+    age: null,
+    createTime: null,
+    email: null,
+    introduction: null,
+    nickname: null,
+    password: null,
+    phone: null,
+    profilePhoto: null,
+    sex: null,
+    _id: null,
 };
 
 const user = (state: any = initialState, action: any) => {

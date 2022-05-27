@@ -62,7 +62,7 @@ const Tool = () => {
 };
 const Header = () => {
     const { userInfo, resetUserInfo } = useContext<LayoutContextProps>(LayoutContext);
-    const { token, username } = userInfo;
+    const { token, username, nickname, profilePhoto } = userInfo;
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -75,6 +75,7 @@ const Header = () => {
     const logout = () => {
         resetUserInfo();
     };
+    const manager = true;
     const MenuDropdown = () => {
         return (
             <div className={styleModule.menuDrop}>
@@ -111,6 +112,19 @@ const Header = () => {
                     <UIcon iconClass="collect" style={menuIconStyle} />
                     我的收藏
                 </div>
+                {manager && (
+                    <>
+                        <div className={styleModule.divider}></div>
+                        <div className={styleModule.item} onClick={() => navigate('/doc/setting')}>
+                            <UIcon iconClass="setting" style={menuIconStyle} />
+                            管理手册
+                        </div>
+                        {/* <div className={styleModule.item} onClick={() => logout()}>
+                            <UIcon iconClass="exit" style={menuIconStyle} />
+                            退出
+                        </div> */}
+                    </>
+                )}
                 <div className={styleModule.divider}></div>
                 <div className={styleModule.item} onClick={() => navigate('/setting')}>
                     <UIcon iconClass="setting" style={menuIconStyle} />
@@ -161,16 +175,12 @@ const Header = () => {
                                 onClick={() => setVisible(!visible)}
                             >
                                 <div className={styleModule.preIcon}>
-                                    <UIcon iconClass="weixin" style={iconStyle} />
-                                    <div className={styleModule.name}>{username}</div>
+                                    <img src={profilePhoto} alt="" className={styleModule.profile} />
+                                    <div className={styleModule.name}>{nickname || username}</div>
                                 </div>
                                 <div className={styleModule.subIcon}>{visible ? <UpOutlined /> : <DownOutlined />}</div>
                             </div>
                         </Popover>
-
-                        {/* <div className={styleModule.login} onClick={() => logout()}>
-                            登出
-                        </div> */}
                     </div>
                 ) : (
                     <div className={styleModule.person}>

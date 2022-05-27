@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Carousel, Pagination, Button } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import styleModule from './index.module.less';
+import { connect } from 'react-redux';
 import { listArticle } from '@/api/article';
 import { useNavigate } from 'react-router-dom';
 import { listTags } from '@/api/tags';
 import { listUser } from '@/api/user';
+import defaultPng from '@/assets/images/10000.png';
 import UIcon from '@/component/UIcon';
 import moment from 'moment';
 
@@ -16,7 +18,12 @@ export interface Props {
     title: String;
     type: String;
     more?: Boolean;
+    user?: any;
 }
+interface TagsContextProps {
+    user?: any;
+}
+const TagsContext = React.createContext<TagsContextProps>({});
 const Article = () => {
     const navigate = useNavigate();
     const [article, setArticle] = useState([]);
@@ -51,7 +58,7 @@ const Article = () => {
                             <div className={styleModule.title}>{item.title}</div>
                             <div className={styleModule.text} dangerouslySetInnerHTML={{ __html: item.content }}></div>
                             <div className={styleModule.mark}>
-                                <div className={styleModule.author}>{item.userId}</div>
+                                <div className={styleModule.author}>{item.user.nickname || item.user.username}</div>
                                 <div className={styleModule.time}>{moment(item.createTime).fromNow()}</div>
                                 <div className={styleModule.read}>浏览 {item.readNum || 0}</div>
                                 <div className={styleModule.comment}>评论 {item.commentNum || 0}</div>
@@ -118,9 +125,11 @@ const Author = () => {
             {userList.map((item) => {
                 return (
                     <div key={item._id} className={styleModule.auItem}>
-                        <div className={styleModule.icon}></div>
+                        <div className={styleModule.icon}>
+                            <img src={item.profilePhoto || defaultPng} alt="" />
+                        </div>
                         <div className={styleModule.auContent}>
-                            <div className={styleModule.row01}>{item.username}</div>
+                            <div className={styleModule.row01}>{item.nickname || item.username}</div>
                             <div className={styleModule.row02}>文章 {item.articleNum || 0}</div>
                         </div>
                         <div className={styleModule.attention}>关注 {item.attentionNum || 0}</div>
@@ -131,12 +140,23 @@ const Author = () => {
     );
 };
 const Doc = () => {
+    const carousel = useRef(null);
+    const prev = () => {
+        if (carousel) {
+            carousel.current.prev();
+        }
+    };
+    const next = () => {
+        if (carousel) {
+            carousel.current.next();
+        }
+    };
     return (
         <div className={styleModule.ucDoc}>
-            <Carousel dots={false}>
+            <Carousel ref={carousel} dots={false}>
                 <div>
                     <div className={classNames(styleModule.docItem, styleModule.carousel01)}>
-                        <div className={styleModule.itemBefore}>
+                        <div className={styleModule.itemBefore} onClick={() => prev()}>
                             <LeftOutlined style={{ color: '#fff' }} />
                         </div>
                         <div className={styleModule.itemInstance}></div>
@@ -144,14 +164,14 @@ const Doc = () => {
                         <div className={styleModule.itemInstance}></div>
                         <div className={styleModule.itemInstance}></div>
                         <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemAfter}>
+                        <div className={styleModule.itemAfter} onClick={() => next()}>
                             <RightOutlined style={{ color: '#fff' }} />
                         </div>
                     </div>
                 </div>
                 <div>
                     <div className={classNames(styleModule.docItem, styleModule.carousel02)}>
-                        <div className={styleModule.itemBefore}>
+                        <div className={styleModule.itemBefore} onClick={() => prev()}>
                             <LeftOutlined style={{ color: '#fff' }} />
                         </div>
                         <div className={styleModule.itemInstance}></div>
@@ -159,37 +179,7 @@ const Doc = () => {
                         <div className={styleModule.itemInstance}></div>
                         <div className={styleModule.itemInstance}></div>
                         <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemAfter}>
-                            <RightOutlined style={{ color: '#fff' }} />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className={classNames(styleModule.docItem, styleModule.carousel03)}>
-                        <div className={styleModule.itemBefore}>
-                            <LeftOutlined style={{ color: '#fff' }} />
-                        </div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemAfter}>
-                            <RightOutlined style={{ color: '#fff' }} />
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className={classNames(styleModule.docItem, styleModule.carousel04)}>
-                        <div className={styleModule.itemBefore}>
-                            <LeftOutlined style={{ color: '#fff' }} />
-                        </div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemInstance}></div>
-                        <div className={styleModule.itemAfter}>
+                        <div className={styleModule.itemAfter} onClick={() => next()}>
                             <RightOutlined style={{ color: '#fff' }} />
                         </div>
                     </div>
@@ -217,20 +207,21 @@ const Link = () => {
     );
 };
 const Writer = () => {
+    const { user } = useContext<TagsContextProps>(TagsContext);
     return (
         <div className={styleModule.ucWriter}>
             <div className={styleModule.person}>
                 <div className={styleModule.icon}>
-                    <UIcon iconClass="weixin" style={iconStyle} />
+                    <img src={user.profilePhoto || defaultPng} alt="" />
                 </div>
                 <div className={styleModule.section}>
-                    <div className={styleModule.name}>空心人</div>
-                    <div className={styleModule.signature}>我是空心人</div>
+                    <div className={styleModule.name}>{user.nickname || user.username}</div>
+                    <div className={styleModule.signature}>{user.introduction}</div>
                 </div>
             </div>
             <div className={styleModule.output}>
                 <div className={styleModule.item}>
-                    <div className={styleModule.count}>0</div>
+                    <div className={styleModule.count}>{user.articleCount}</div>
                     <div className={styleModule.type}>文章</div>
                 </div>
                 <div className={styleModule.item}>
@@ -254,8 +245,7 @@ const Writer = () => {
     );
 };
 const Tags: React.FC<Props> = (props: Props) => {
-    const { url, title, type, more = true } = props;
-
+    const { url, title, type, more = true, user = {} } = props;
     let UC = <HotTags />;
     switch (type) {
         case 'author':
@@ -277,13 +267,15 @@ const Tags: React.FC<Props> = (props: Props) => {
             break;
     }
     return (
-        <div className={classNames('uPart', styleModule.tags)}>
-            <div className={styleModule.uh}>
-                <div className={styleModule.ut}>{title}</div>
-                {more && <div className={styleModule.uo}>更多</div>}
+        <TagsContext.Provider value={{ user }}>
+            <div className={classNames('uPart', styleModule.tags)}>
+                <div className={styleModule.uh}>
+                    <div className={styleModule.ut}>{title}</div>
+                    {more && <div className={styleModule.uo}>更多</div>}
+                </div>
+                {UC}
             </div>
-            {UC}
-        </div>
+        </TagsContext.Provider>
     );
 };
 export default Tags;

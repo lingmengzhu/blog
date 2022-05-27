@@ -1,0 +1,43 @@
+.pageSetting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 170px);
+    .settingBox {
+        width: 900px;
+        position: relative;
+        background: #fff;
+        box-shadow: 1px 1px 5px rgb(0 0 0 / 10%);
+        border-radius: 5px;
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .basicForm {
+            padding: 20px 20px;
+            .header {
+                margin-bottom: 20px;
+            }
+            .imgColumn {
+                img {
+                    width: 80px;
+                    height: 80px;
+                }
+            }
+            .operate {
+                text-align: center;
+                button {
+                    &:first-child {
+                        margin-right: 12px;
+                    }
+                }
+            }
+        }
+        .operate {
+            padding: 15px 20px;
+            text-align: right;
+        }
+    }
+}
