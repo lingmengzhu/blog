@@ -4,7 +4,6 @@ import { Form, Input, Button, Checkbox, message, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '@/api/user';
-import { urlWithToken } from '@/utils/index';
 import { setUserInfo } from '@/actions/user';
 import qs from 'query-string';
 import styleModule from './index.module.less';
@@ -19,7 +18,7 @@ const Index = (props: any) => {
             .then((res: any) => {
                 const { token, id } = res.data;
                 const { profilePhoto } = res.data.user;
-                setUserInfo({ userId: id, ...res.data.user, token, profilePhoto: urlWithToken(profilePhoto, token) });
+                setUserInfo({ userId: id, ...res.data.user, token, profilePhoto });
             })
             .catch(() => {});
     };

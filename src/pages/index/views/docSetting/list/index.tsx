@@ -58,7 +58,7 @@ const Index = (props: any) => {
     const data: any[] = [
         {
             title: 'React',
-            image: urlWithToken('http://localhost:8080\\upload\\b81693b439ac71637af20a601.png', token),
+            image: 'http://localhost:8080\\upload\\b81693b439ac71637af20a601.png',
             url: 'https://reactjs.org/',
         },
     ];

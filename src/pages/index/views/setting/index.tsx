@@ -6,7 +6,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import ImgCrop from 'antd-img-crop';
 import qs from 'query-string';
-import { urlWithToken } from '@/utils/index';
 import { getUser, updateUser } from '@/api/user';
 import styleModule from './index.module.less';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
@@ -59,13 +58,13 @@ const Index = (props: any) => {
                             name: arr[arr.length - 1],
                             percent: 100,
                             status: 'success',
-                            thumbUrl: urlWithToken(profilePhoto, token),
-                            url: urlWithToken(profilePhoto, token),
+                            thumbUrl: profilePhoto,
+                            url: profilePhoto,
                         },
                     ]);
                 }
             })
-            .catch(() => {});
+            .catch(() => { });
     }, []);
 
     const onFileChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
@@ -105,7 +104,7 @@ const Index = (props: any) => {
             .then((res: any) => {
                 message.success('保存成功');
             })
-            .catch(() => {});
+            .catch(() => { });
     };
     return (
         <div className={styleModule.pageSetting}>
