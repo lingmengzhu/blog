@@ -189,19 +189,22 @@ const Doc = () => {
     );
 };
 const Link = () => {
+    const goTo = (url: any) => {
+        window.open(url)
+    }
     return (
         <div className={styleModule.ucLink}>
             <div className={styleModule.warper}>
-                <div className={styleModule.linkItem}>掘金主页</div>
+                <div className={styleModule.linkItem} onClick={() => goTo('https://juejin.cn/user/1460581394299454')}>掘金主页</div>
             </div>
             <div className={styleModule.warper}>
-                <div className={styleModule.linkItem}>github主页</div>
+                <div className={styleModule.linkItem} onClick={() => goTo('https://github.com/lingmengzhu')}>github主页</div>
             </div>
             <div className={styleModule.warper}>
-                <div className={styleModule.linkItem}>码云主页</div>
+                <div className={styleModule.linkItem} onClick={() => goTo('https://gitee.com/missread')}>码云主页</div>
             </div>
             <div className={styleModule.warper}>
-                <div className={styleModule.linkItem}>个人主页</div>
+                <div className={styleModule.linkItem} onClick={() => goTo('https://juejin.cn/user/1460581394299454')}>个人主页</div>
             </div>
         </div>
     );
